@@ -58,8 +58,8 @@ function e3_dequeue_dashicons_for_visitors() {
 }
 
 /** ---------------------------------------------------------
- * Intent detection (emergency vs planned)
- * - Order: emergency keywords win, planned keywords next, default emergency
+ * Intent detection (emergency vs same_day vs planned)
+ * - Order: emergency keywords win, same_day keywords next, planned keywords next, default emergency
  * -------------------------------------------------------- */
 function e3_get_page_intent( $post_id = 0 ) {
 	if ( ! $post_id ) {
@@ -68,7 +68,7 @@ function e3_get_page_intent( $post_id = 0 ) {
 
 	// Per-page override (optional)
 	$override = $post_id ? get_post_meta( $post_id, '_e3_intent', true ) : '';
-	if ( in_array( $override, array( 'emergency', 'planned' ), true ) ) {
+	if ( in_array( $override, array( 'emergency', 'same_day', 'planned' ), true ) ) {
 		return $override;
 	}
 	if ( 'off' === $override ) {
@@ -92,9 +92,20 @@ function e3_get_page_intent( $post_id = 0 ) {
 		}
 	}
 
+	$same_day = array(
+		'same-day', 'sameday', 'today', 'urgent', 'fast', 'quick', 'rapid'
+	);
+
+	foreach ( $same_day as $k ) {
+		if ( false !== strpos( $haystack, $k ) ) {
+			return 'same_day';
+		}
+	}
+
 	$planned = array(
 		'lock-change', 'lock-replacement', 'replace-lock', 'new-lock', 'install', 'installation',
-		'upgrade', 'security-upgrade', 'smart-lock', 'rekey', 'key-cut', 'spare-key', 'lock-fitting'
+		'upgrade', 'security-upgrade', 'smart-lock', 'rekey', 'key-cut', 'spare-key', 'lock-fitting',
+		'quote', 'pricing', 'price', 'cost'
 	);
 
 	foreach ( $planned as $k ) {
@@ -206,6 +217,83 @@ function e3_phone_to_tel_href( $phone ) {
 
 
 /** ---------------------------------------------------------
+ * Hero Content Configuration
+ * Edit these arrays to change the text for each hero variant
+ * -------------------------------------------------------- */
+function e3_get_hero_content() {
+	return array(
+		'emergency' => array(
+			'top_label'    => 'Emergency 24/7:',
+			'top_bullet_1' => '30-min response',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'DBS checked',
+			'title'        => 'Locked Out? We\'ll Get You Back In Fast',
+			'subtitle'     => 'Emergency locksmith dispatch — we respond within 30 minutes across the UK',
+			'usp_1_title'  => 'Rapid 30-minute response',
+			'usp_1_desc'   => 'Emergency callout with immediate dispatch to your location',
+			'usp_2_title'  => 'Zero call-out charges',
+			'usp_2_desc'   => 'Talk to us first — only pay for work completed',
+			'usp_3_title'  => 'Fully vetted locksmiths',
+			'usp_3_desc'   => 'All engineers are DBS-checked and insured professionals',
+			'usp_4_title'  => 'Local engineers nationwide',
+			'usp_4_desc'   => 'Fast response from your nearest qualified locksmith',
+			'cta_text'     => 'Call Emergency Line',
+			'microcopy'    => '24/7 dispatch • No hidden fees • DBS-checked engineers',
+			'badge_1'      => 'DBS checked',
+			'badge_2'      => 'No call-out fee',
+			'badge_3'      => '30-min response',
+			'badge_4'      => 'Local coverage',
+			'sticky_cta'   => 'Call Now',
+		),
+		'same_day' => array(
+			'top_label'    => 'Same-Day Service:',
+			'top_bullet_1' => 'Book today',
+			'top_bullet_2' => 'Fixed pricing',
+			'top_bullet_3' => 'No rush fees',
+			'title'        => 'Same-Day Lock Changes & Security Repairs',
+			'subtitle'     => 'Call before 2pm for same-day service — fixed prices with no surprise charges',
+			'usp_1_title'  => 'Same-day availability',
+			'usp_1_desc'   => 'Book today, sorted today — call before 2pm for guaranteed slots',
+			'usp_2_title'  => 'Transparent fixed pricing',
+			'usp_2_desc'   => 'Clear quotes over the phone with no hidden extras',
+			'usp_3_title'  => 'Professional service',
+			'usp_3_desc'   => 'Expert locksmiths with full credentials and insurance',
+			'usp_4_title'  => 'No rush charges applied',
+			'usp_4_desc'   => 'Same competitive rates whether it\'s urgent or planned',
+			'cta_text'     => 'Call for Same-Day',
+			'microcopy'    => 'Same-day slots • Clear pricing • Professional service',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Fixed pricing',
+			'badge_3'      => 'No rush fees',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Book Same-Day',
+		),
+		'planned' => array(
+			'top_label'    => 'Get Your Quote:',
+			'top_bullet_1' => 'Free quotes',
+			'top_bullet_2' => 'No pressure',
+			'top_bullet_3' => 'Flexible times',
+			'title'        => 'Professional Lock Installation & Security Upgrades',
+			'subtitle'     => 'Get a free quote over the phone — we\'ll arrange a time that suits you',
+			'usp_1_title'  => 'Free no-obligation quotes',
+			'usp_1_desc'   => 'Speak to us for clear pricing before you commit',
+			'usp_2_title'  => 'Flexible scheduling',
+			'usp_2_desc'   => 'Book appointments that work around your availability',
+			'usp_3_title'  => 'Expert recommendations',
+			'usp_3_desc'   => 'Professional advice on the best security solutions for your property',
+			'usp_4_title'  => 'Quality installations',
+			'usp_4_desc'   => 'Certified locksmiths using premium locks and hardware',
+			'cta_text'     => 'Call for a Quote',
+			'microcopy'    => 'Free quotes • No pressure • Flexible appointments',
+			'badge_1'      => 'Free quotes',
+			'badge_2'      => 'Expert advice',
+			'badge_3'      => 'Quality work',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Get Quote',
+		),
+	);
+}
+
 /** ---------------------------------------------------------
  * Remove Kadence default title output (prevents double H1)
  * -------------------------------------------------------- */
@@ -240,27 +328,25 @@ function e3_output_conversion_hero() {
 		return;
 	}
 
-	$title_default = $post_id ? get_the_title( $post_id ) : get_bloginfo( 'name' );
+	// Get hero content configuration
+	$hero_content = e3_get_hero_content();
+	$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+
+	// Allow per-page overrides, but fallback to configured content
 	$title = e3_get_page_override( $post_id, '_e3_hero_title' );
-	if ( '' === $title ) { $title = $title_default; }
+	if ( '' === $title ) { $title = $content['title']; }
 
-	$sub_default = ( 'emergency' === $intent )
-		? 'Call now for immediate help — we’ll dispatch a local, DBS-checked locksmith.'
-		: 'Prices are arranged over the phone — call and we’ll give you a clear price.';
 	$sub = e3_get_page_override( $post_id, '_e3_hero_sub' );
-	if ( '' === $sub ) { $sub = $sub_default; }
+	if ( '' === $sub ) { $sub = $content['subtitle']; }
 
-	$cta_default = ( 'emergency' === $intent ) ? 'Call Now' : 'Call for a Price';
 	$cta = e3_get_page_override( $post_id, '_e3_hero_cta' );
-	if ( '' === $cta ) { $cta = $cta_default; }
+	if ( '' === $cta ) { $cta = $content['cta_text']; }
 
-	$micro_default = 'Immediate help • Prices arranged over the phone • No forms';
 	$micro = e3_get_page_override( $post_id, '_e3_hero_micro' );
-	if ( '' === $micro ) { $micro = $micro_default; }
+	if ( '' === $micro ) { $micro = $content['microcopy']; }
 
-	$top_label_default = 'Call 24/7:';
 	$top_label = e3_get_page_override( $post_id, '_e3_hero_toplabel' );
-	if ( '' === $top_label ) { $top_label = $top_label_default; }
+	if ( '' === $top_label ) { $top_label = $content['top_label']; }
 
 	$bg_url = e3_get_page_override( $post_id, '_e3_hero_bg_url' );
 
@@ -284,9 +370,9 @@ function e3_output_conversion_hero() {
 	$html .= '    <div class="e3-topstrip">';
 	$html .= '      <span class="e3-topstrip__label">' . esc_html( $top_label ) . '</span> ';
 	$html .= '      <a class="e3-topstrip__phone" href="' . esc_attr( $phone_href ? $phone_href : 'tel:' ) . '">' . esc_html( $phone_display ) . '</a>';
-	$html .= '      <span class="e3-topstrip__sep">•</span> <span>30-min response target</span>';
-	$html .= '      <span class="e3-topstrip__sep">•</span> <span>No call-out fee</span>';
-	$html .= '      <span class="e3-topstrip__sep">•</span> <span>DBS checked</span>';
+	$html .= '      <span class="e3-topstrip__sep">•</span> <span>' . esc_html( $content['top_bullet_1'] ) . '</span>';
+	$html .= '      <span class="e3-topstrip__sep">•</span> <span>' . esc_html( $content['top_bullet_2'] ) . '</span>';
+	$html .= '      <span class="e3-topstrip__sep">•</span> <span>' . esc_html( $content['top_bullet_3'] ) . '</span>';
 	$html .= '    </div>';
 
 	$html .= '    <div class="e3-hero__grid">';
@@ -295,10 +381,10 @@ function e3_output_conversion_hero() {
 	$html .= '        <p class="e3-hero__sub">' . esc_html( $sub ) . '</p>';
 
 	$html .= '        <ul class="e3-usps">';
-	$html .= '          <li>' . $icon_clock . '<div><strong>30-minute response target</strong><span>Fast dispatch when you need help.</span></div></li>';
-	$html .= '          <li>' . $icon_pound . '<div><strong>No call-out fee</strong><span>Speak to us first — no obligation.</span></div></li>';
-	$html .= '          <li>' . $icon_shield . '<div><strong>DBS checked</strong><span>Trusted locksmiths you can rely on.</span></div></li>';
-	$html .= '          <li>' . $icon_pin . '<div><strong>Local locksmiths</strong><span>We cover towns across the UK.</span></div></li>';
+	$html .= '          <li>' . $icon_clock . '<div><strong>' . esc_html( $content['usp_1_title'] ) . '</strong><span>' . esc_html( $content['usp_1_desc'] ) . '</span></div></li>';
+	$html .= '          <li>' . $icon_pound . '<div><strong>' . esc_html( $content['usp_2_title'] ) . '</strong><span>' . esc_html( $content['usp_2_desc'] ) . '</span></div></li>';
+	$html .= '          <li>' . $icon_shield . '<div><strong>' . esc_html( $content['usp_3_title'] ) . '</strong><span>' . esc_html( $content['usp_3_desc'] ) . '</span></div></li>';
+	$html .= '          <li>' . $icon_pin . '<div><strong>' . esc_html( $content['usp_4_title'] ) . '</strong><span>' . esc_html( $content['usp_4_desc'] ) . '</span></div></li>';
 	$html .= '        </ul>';
 
 	$html .= '        <div class="e3-cta">';
@@ -307,10 +393,10 @@ function e3_output_conversion_hero() {
 	$html .= '        <p class="e3-microcopy">' . esc_html( $micro ) . '</p>';
 
 	$html .= '        <div class="e3-trust">';
-	$html .= '          <div class="e3-trust__item">' . $icon_shield . 'DBS checked</div>';
-	$html .= '          <div class="e3-trust__item">' . $icon_pound . 'No call-out fee</div>';
-	$html .= '          <div class="e3-trust__item">' . $icon_clock . '30-min response target</div>';
-	$html .= '          <div class="e3-trust__item">' . $icon_pin . 'Local coverage</div>';
+	$html .= '          <div class="e3-trust__item">' . $icon_shield . esc_html( $content['badge_1'] ) . '</div>';
+	$html .= '          <div class="e3-trust__item">' . $icon_pound . esc_html( $content['badge_2'] ) . '</div>';
+	$html .= '          <div class="e3-trust__item">' . $icon_clock . esc_html( $content['badge_3'] ) . '</div>';
+	$html .= '          <div class="e3-trust__item">' . $icon_pin . esc_html( $content['badge_4'] ) . '</div>';
 	$html .= '        </div>';
 	$html .= '      </div>';
 	$html .= '      <div class="e3-hero__side" aria-hidden="true"></div>';
@@ -347,9 +433,12 @@ function e3_output_sticky_call_bar() {
 		return;
 	}
 
-	$cta_default = ( 'planned' === $intent ) ? 'Call for a Price' : 'Call Now';
+	// Get hero content configuration for sticky CTA
+	$hero_content = e3_get_hero_content();
+	$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+
 	$cta = e3_get_page_override( get_queried_object_id(), '_e3_sticky_cta' );
-	if ( '' === $cta ) { $cta = $cta_default; }
+	if ( '' === $cta ) { $cta = $content['sticky_cta']; }
 	$phone_display = e3_get_phone_display();
 	$phone_href    = e3_phone_to_tel_href( $phone_display );
 
