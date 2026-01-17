@@ -408,29 +408,41 @@ function e3_output_conversion_hero() {
 	}
 
 	// Check for page-specific hero content first (takes priority)
-	$content = e3_get_page_specific_hero_content( $post_id );
+	$page_specific_content = e3_get_page_specific_hero_content( $post_id );
+	$has_page_specific = ( null !== $page_specific_content );
 
 	// If no page-specific content, fall back to intent-based content
-	if ( null === $content ) {
+	if ( null === $page_specific_content ) {
 		$hero_content = e3_get_hero_content();
 		$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+	} else {
+		$content = $page_specific_content;
 	}
 
-	// Allow per-page overrides, but fallback to configured content
-	$title = e3_get_page_override( $post_id, '_e3_hero_title' );
-	if ( '' === $title ) { $title = $content['title']; }
+	// Allow per-page custom field overrides ONLY if there's no hardcoded page-specific content
+	if ( ! $has_page_specific ) {
+		$title = e3_get_page_override( $post_id, '_e3_hero_title' );
+		if ( '' === $title ) { $title = $content['title']; }
 
-	$sub = e3_get_page_override( $post_id, '_e3_hero_sub' );
-	if ( '' === $sub ) { $sub = $content['subtitle']; }
+		$sub = e3_get_page_override( $post_id, '_e3_hero_sub' );
+		if ( '' === $sub ) { $sub = $content['subtitle']; }
 
-	$cta = e3_get_page_override( $post_id, '_e3_hero_cta' );
-	if ( '' === $cta ) { $cta = $content['cta_text']; }
+		$cta = e3_get_page_override( $post_id, '_e3_hero_cta' );
+		if ( '' === $cta ) { $cta = $content['cta_text']; }
 
-	$micro = e3_get_page_override( $post_id, '_e3_hero_micro' );
-	if ( '' === $micro ) { $micro = $content['microcopy']; }
+		$micro = e3_get_page_override( $post_id, '_e3_hero_micro' );
+		if ( '' === $micro ) { $micro = $content['microcopy']; }
 
-	$top_label = e3_get_page_override( $post_id, '_e3_hero_toplabel' );
-	if ( '' === $top_label ) { $top_label = $content['top_label']; }
+		$top_label = e3_get_page_override( $post_id, '_e3_hero_toplabel' );
+		if ( '' === $top_label ) { $top_label = $content['top_label']; }
+	} else {
+		// Page-specific content - use it directly, ignore custom fields
+		$title = $content['title'];
+		$sub = $content['subtitle'];
+		$cta = $content['cta_text'];
+		$micro = $content['microcopy'];
+		$top_label = $content['top_label'];
+	}
 
 	$bg_url = e3_get_page_override( $post_id, '_e3_hero_bg_url' );
 
