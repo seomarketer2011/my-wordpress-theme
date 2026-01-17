@@ -217,80 +217,31 @@ function e3_phone_to_tel_href( $phone ) {
 
 
 /** ---------------------------------------------------------
- * Hero Content Configuration
- * Edit these arrays to change the text for each hero variant
+ * Simple Default Hero Content (fallback for unconfigured pages)
  * -------------------------------------------------------- */
-function e3_get_hero_content() {
+function e3_get_default_hero_content() {
 	return array(
-		'emergency' => array(
-			'top_label'    => 'Emergency 24/7:',
-			'top_bullet_1' => '30-min response',
-			'top_bullet_2' => 'No call-out fee',
-			'top_bullet_3' => 'DBS checked',
-			'title'        => 'Locked Out? We\'ll Get You Back In Fast',
-			'subtitle'     => 'Emergency locksmith dispatch — we respond within 30 minutes across the UK',
-			'usp_1_title'  => 'Rapid 30-minute response',
-			'usp_1_desc'   => 'Emergency callout with immediate dispatch to your location',
-			'usp_2_title'  => 'Zero call-out charges',
-			'usp_2_desc'   => 'Talk to us first — only pay for work completed',
-			'usp_3_title'  => 'Fully vetted locksmiths',
-			'usp_3_desc'   => 'All engineers are DBS-checked and insured professionals',
-			'usp_4_title'  => 'Local engineers nationwide',
-			'usp_4_desc'   => 'Fast response from your nearest qualified locksmith',
-			'cta_text'     => 'Call Emergency Line',
-			'microcopy'    => '24/7 dispatch • No hidden fees • DBS-checked engineers',
-			'badge_1'      => 'DBS checked',
-			'badge_2'      => 'No call-out fee',
-			'badge_3'      => '30-min response',
-			'badge_4'      => 'Local coverage',
-			'sticky_cta'   => 'Call Now',
-		),
-		'same_day' => array(
-			'top_label'    => 'Same-Day Service:',
-			'top_bullet_1' => 'Book today',
-			'top_bullet_2' => 'Fixed pricing',
-			'top_bullet_3' => 'No rush fees',
-			'title'        => 'Same-Day Lock Changes & Security Repairs',
-			'subtitle'     => 'Call before 2pm for same-day service — fixed prices with no surprise charges',
-			'usp_1_title'  => 'Same-day availability',
-			'usp_1_desc'   => 'Book today, sorted today — call before 2pm for guaranteed slots',
-			'usp_2_title'  => 'Transparent fixed pricing',
-			'usp_2_desc'   => 'Clear quotes over the phone with no hidden extras',
-			'usp_3_title'  => 'Professional service',
-			'usp_3_desc'   => 'Expert locksmiths with full credentials and insurance',
-			'usp_4_title'  => 'No rush charges applied',
-			'usp_4_desc'   => 'Same competitive rates whether it\'s urgent or planned',
-			'cta_text'     => 'Call for Same-Day',
-			'microcopy'    => 'Same-day slots • Clear pricing • Professional service',
-			'badge_1'      => 'Same-day service',
-			'badge_2'      => 'Fixed pricing',
-			'badge_3'      => 'No rush fees',
-			'badge_4'      => 'DBS checked',
-			'sticky_cta'   => 'Book Same-Day',
-		),
-		'planned' => array(
-			'top_label'    => 'Get Your Quote:',
-			'top_bullet_1' => 'Free quotes',
-			'top_bullet_2' => 'No pressure',
-			'top_bullet_3' => 'Flexible times',
-			'title'        => 'Professional Lock Installation & Security Upgrades',
-			'subtitle'     => 'Get a free quote over the phone — we\'ll arrange a time that suits you',
-			'usp_1_title'  => 'Free no-obligation quotes',
-			'usp_1_desc'   => 'Speak to us for clear pricing before you commit',
-			'usp_2_title'  => 'Flexible scheduling',
-			'usp_2_desc'   => 'Book appointments that work around your availability',
-			'usp_3_title'  => 'Expert recommendations',
-			'usp_3_desc'   => 'Professional advice on the best security solutions for your property',
-			'usp_4_title'  => 'Quality installations',
-			'usp_4_desc'   => 'Certified locksmiths using premium locks and hardware',
-			'cta_text'     => 'Call for a Quote',
-			'microcopy'    => 'Free quotes • No pressure • Flexible appointments',
-			'badge_1'      => 'Free quotes',
-			'badge_2'      => 'Expert advice',
-			'badge_3'      => 'Quality work',
-			'badge_4'      => 'DBS checked',
-			'sticky_cta'   => 'Get Quote',
-		),
+		'top_label'    => 'Call us 24/7',
+		'top_bullet_1' => '30-min response',
+		'top_bullet_2' => 'No call-out fee',
+		'top_bullet_3' => 'DBS checked',
+		'title'        => 'Professional Locksmith Services [location]',
+		'subtitle'     => 'Fast, reliable locksmith service across [location] — call for immediate help or a free quote',
+		'usp_1_title'  => 'Fast response times',
+		'usp_1_desc'   => 'Rapid callout service when you need help with locks and security',
+		'usp_2_title'  => 'Clear pricing',
+		'usp_2_desc'   => 'Transparent quotes with no hidden charges',
+		'usp_3_title'  => 'Professional service',
+		'usp_3_desc'   => 'Expert locksmiths with full credentials and insurance',
+		'usp_4_title'  => 'DBS-checked engineers',
+		'usp_4_desc'   => 'Trusted, vetted locksmiths for your security needs',
+		'cta_text'     => 'Call for Help',
+		'microcopy'    => 'Professional service • Clear pricing • DBS checked',
+		'badge_1'      => 'Fast response',
+		'badge_2'      => 'Clear pricing',
+		'badge_3'      => 'Professional',
+		'badge_4'      => 'DBS checked',
+		'sticky_cta'   => 'Call Now',
 	);
 }
 
@@ -438,10 +389,9 @@ function e3_output_conversion_hero() {
 	$page_specific_content = e3_get_page_specific_hero_content( $post_id );
 	$has_page_specific = ( null !== $page_specific_content );
 
-	// If no page-specific content, fall back to intent-based content
+	// If no page-specific content, use simple default
 	if ( null === $page_specific_content ) {
-		$hero_content = e3_get_hero_content();
-		$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+		$content = e3_get_default_hero_content();
 	} else {
 		$content = $page_specific_content;
 	}
@@ -560,10 +510,9 @@ function e3_output_sticky_call_bar() {
 	$post_id = get_queried_object_id();
 	$content = e3_get_page_specific_hero_content( $post_id );
 
-	// If no page-specific content, fall back to intent-based content
+	// If no page-specific content, use simple default
 	if ( null === $content ) {
-		$hero_content = e3_get_hero_content();
-		$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+		$content = e3_get_default_hero_content();
 	}
 
 	$cta = e3_get_page_override( get_queried_object_id(), '_e3_sticky_cta' );
