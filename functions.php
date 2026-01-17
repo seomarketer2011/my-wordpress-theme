@@ -340,7 +340,7 @@ function e3_get_page_specific_hero_content( $post_id ) {
 	// Burglary Repair Services Page
 	if ( 'burglary-repair-services' === $slug || 'burglary-repair' === $slug ) {
 		$page_content = array(
-			'top_label'    => 'Call Us Now',
+			'top_label'    => 'Call us 24/7',
 			'top_bullet_1' => '24/7 response',
 			'top_bullet_2' => 'Make safe service',
 			'top_bullet_3' => 'Insurance support',
@@ -361,6 +361,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 			'badge_3'      => 'Insurance help',
 			'badge_4'      => 'DBS checked',
 			'sticky_cta'   => 'Call for Burglar Repair Help',
+		);
+	}
+
+	// Security Grilles Page
+	if ( 'security-grilles' === $slug || 'security-grille' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call us 24/7',
+			'top_bullet_1' => 'Book today',
+			'top_bullet_2' => 'Fixed pricing',
+			'top_bullet_3' => 'From £69',
+			'title'        => 'Security Grille Lock Repair [location] – Same-Day Service Available',
+			'subtitle'     => 'Grille stuck or stiff? We\'ll restore lock function with same-day repair service – book today and get your mechanism working smoothly',
+			'usp_1_title'  => 'Same-day grille lock repair',
+			'usp_1_desc'   => 'Book before 2pm for same-day service – we fix jammed, stiff, or binding grille mechanisms',
+			'usp_2_title'  => 'Clear repair pricing',
+			'usp_2_desc'   => 'Fixed-price repairs quoted upfront – no parts charged unless necessary',
+			'usp_3_title'  => 'Repair-first specialists',
+			'usp_3_desc'   => 'We restore existing lock function rather than replace – professional diagnosis and testing',
+			'usp_4_title'  => 'DBS-checked engineers',
+			'usp_4_desc'   => 'Trusted locksmiths for commercial security grille repairs and servicing',
+			'cta_text'     => 'Call for Grille Repair',
+			'microcopy'    => 'Same-day service • Repair-first • Clear pricing',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Repair-focused',
+			'badge_3'      => 'Fixed pricing',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call for Same-Day Repair',
 		);
 	}
 
