@@ -307,13 +307,6 @@ function e3_get_page_specific_hero_content( $post_id ) {
 	$post = get_post( $post_id );
 	$slug = $post ? $post->post_name : '';
 
-	// TEMPORARY DEBUG: Show the actual slug
-	// Remove this after identifying the correct slug
-	if ( false !== strpos( get_the_title( $post_id ), 'Security Grille' ) || false !== strpos( get_the_title( $post_id ), 'Grille' ) ) {
-		// This will temporarily show in the hero for debugging
-		error_log( 'Security Grilles Page Slug: ' . $slug );
-	}
-
 	// Page-specific hero content by slug or ID
 	$page_content = array();
 
@@ -371,8 +364,8 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
-	// Security Grilles Page
-	if ( 'security-grilles' === $slug || 'security-grille' === $slug || 'security-grille-lock-repairs' === $slug || 'security-grille-lock-repair' === $slug ) {
+	// Security Grilles Page (Post ID: 381)
+	if ( 381 === $post_id || 'security-grilles' === $slug || 'security-grille' === $slug || 'security-grille-lock-repairs' === $slug || 'security-grille-lock-repair' === $slug ) {
 		$page_content = array(
 			'top_label'    => 'Call us 24/7',
 			'top_bullet_1' => 'Book today',
