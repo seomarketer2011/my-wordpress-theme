@@ -340,6 +340,8 @@ function e3_get_page_specific_hero_content( $post_id ) {
 			'badge_4'      => 'DBS checked',
 			'sticky_cta'   => 'Call for Same-Day Repair',
 		);
+		// DEBUG: Log that we matched this page
+		error_log( 'E3 Hero: Matched Security Grilles Page - Post ID: ' . $post_id . ', Slug: ' . $slug );
 	}
 
 	// Add more pages here as needed
@@ -438,7 +440,8 @@ function e3_output_conversion_hero() {
 	if ( '' !== $bg_url ) {
 		$style_attr = ' style="--e3-hero-bg:url(\'' . esc_url( $bg_url ) . '\')"';
 	}
-	$html  = '<section class="e3-hero e3-hero--' . esc_attr( $intent ) . '"' . $style_attr . '>';
+	$html  = '<!-- E3 Hero Debug: Post ID=' . $post_id . ', Has Page Specific=' . ( $has_page_specific ? 'YES' : 'NO' ) . ', Top Label=' . esc_attr( $top_label ) . ' -->';
+	$html .= '<section class="e3-hero e3-hero--' . esc_attr( $intent ) . '"' . $style_attr . '>';
 	$html .= '  <div class="e3-hero__wrap">';
 	$html .= '    <div class="e3-topstrip">';
 	$html .= '      <span class="e3-topstrip__label">' . esc_html( $top_label ) . '</span> ';
