@@ -295,6 +295,58 @@ function e3_get_hero_content() {
 }
 
 /** ---------------------------------------------------------
+ * Per-Page Hero Content (hardcoded for specific pages)
+ * Takes priority over intent-based content
+ * -------------------------------------------------------- */
+function e3_get_page_specific_hero_content( $post_id ) {
+	if ( ! $post_id ) {
+		return null;
+	}
+
+	// Get current page slug
+	$post = get_post( $post_id );
+	$slug = $post ? $post->post_name : '';
+
+	// Page-specific hero content by slug or ID
+	$page_content = array();
+
+	// Commercial Locksmiths Page
+	if ( 'commercial-locksmiths' === $slug || 'commercial-locksmith' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Business Locksmith:',
+			'top_bullet_1' => '30-min response',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'DBS checked',
+			'title'        => 'Commercial Locksmith Services [location] – Business Access & Security',
+			'subtitle'     => 'Locked out or need security upgrades? We serve businesses across [location] with rapid response and professional key control solutions',
+			'usp_1_title'  => 'Rapid business lockout response',
+			'usp_1_desc'   => '30-minute emergency callout to get your premises open and staff back to work',
+			'usp_2_title'  => 'Zero call-out charges',
+			'usp_2_desc'   => 'Speak to us first, get clear pricing, only pay for completed work',
+			'usp_3_title'  => 'DBS-checked commercial engineers',
+			'usp_3_desc'   => 'Trusted, vetted locksmiths for your business premises and security systems',
+			'usp_4_title'  => 'Master key systems & rekeying',
+			'usp_4_desc'   => 'Full key control for businesses – manage staff access and eliminate lost key risks',
+			'cta_text'     => 'Call for Business Locksmith',
+			'microcopy'    => '30-min response • Master key systems • No call-out fees',
+			'badge_1'      => 'DBS checked',
+			'badge_2'      => 'Business focused',
+			'badge_3'      => '30-min response',
+			'badge_4'      => 'Key control experts',
+			'sticky_cta'   => 'Call 24/7 For Help',
+		);
+	}
+
+	// Add more pages here as needed
+	// Example:
+	// if ( 'emergency-locksmith' === $slug ) {
+	//     $page_content = array( ... );
+	// }
+
+	return ! empty( $page_content ) ? $page_content : null;
+}
+
+/** ---------------------------------------------------------
  * Remove Kadence default title output (prevents double H1)
  * -------------------------------------------------------- */
 add_action( 'wp', 'e3_maybe_remove_kadence_default_titles' );
@@ -328,9 +380,14 @@ function e3_output_conversion_hero() {
 		return;
 	}
 
-	// Get hero content configuration
-	$hero_content = e3_get_hero_content();
-	$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+	// Check for page-specific hero content first (takes priority)
+	$content = e3_get_page_specific_hero_content( $post_id );
+
+	// If no page-specific content, fall back to intent-based content
+	if ( null === $content ) {
+		$hero_content = e3_get_hero_content();
+		$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+	}
 
 	// Allow per-page overrides, but fallback to configured content
 	$title = e3_get_page_override( $post_id, '_e3_hero_title' );
@@ -433,9 +490,15 @@ function e3_output_sticky_call_bar() {
 		return;
 	}
 
-	// Get hero content configuration for sticky CTA
-	$hero_content = e3_get_hero_content();
-	$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+	// Check for page-specific hero content first (takes priority)
+	$post_id = get_queried_object_id();
+	$content = e3_get_page_specific_hero_content( $post_id );
+
+	// If no page-specific content, fall back to intent-based content
+	if ( null === $content ) {
+		$hero_content = e3_get_hero_content();
+		$content = isset( $hero_content[ $intent ] ) ? $hero_content[ $intent ] : $hero_content['emergency'];
+	}
 
 	$cta = e3_get_page_override( get_queried_object_id(), '_e3_sticky_cta' );
 	if ( '' === $cta ) { $cta = $content['sticky_cta']; }
