@@ -337,6 +337,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Burglary Repair Services Page
+	if ( 'burglary-repair-services' === $slug || 'burglary-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Us Now',
+			'top_bullet_1' => '24/7 response',
+			'top_bullet_2' => 'Make safe service',
+			'top_bullet_3' => 'Insurance support',
+			'title'        => 'Emergency Burglary Repair Services [location] – We\'ll Make Your Property Safe',
+			'subtitle'     => 'Been broken into? We\'ll secure your property immediately with 24/7 emergency response, frame repairs, and insurance documentation support',
+			'usp_1_title'  => '24/7 emergency callout',
+			'usp_1_desc'   => 'Rapid response to secure your property after a break-in – we\'ll make it safe tonight',
+			'usp_2_title'  => 'Insurance claim assistance',
+			'usp_2_desc'   => 'Professional documentation and reports for your insurance claim with transparent pricing',
+			'usp_3_title'  => 'Complete Damage Repairs',
+			'usp_3_desc'   => 'Frame repairs, lock replacement, and full security assessment to prevent repeat entry',
+			'usp_4_title'  => 'DBS-Checked Locksmiths',
+			'usp_4_desc'   => 'Trusted, vetted locksmiths who understand the distress and urgency of break-ins',
+			'cta_text'     => 'Call 24/7 For Help',
+			'microcopy'    => '24/7 emergency response • Make safe service • Insurance support',
+			'badge_1'      => '24/7 available',
+			'badge_2'      => 'Make safe service',
+			'badge_3'      => 'Insurance help',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call for Burglar Repair Help',
+		);
+	}
+
 	// Add more pages here as needed
 	// Example:
 	// if ( 'emergency-locksmith' === $slug ) {
