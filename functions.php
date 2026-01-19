@@ -610,6 +610,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// CCTV Installation Page
+	if ( 'cctv-installation' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Professional Installation',
+			'top_bullet_2' => 'HD Day & Night Footage',
+			'top_bullet_3' => 'Survey from £69',
+			'title'        => 'CCTV Installation Services [location]',
+			'subtitle'     => 'Need professional CCTV installed? We design and fit HD camera systems with crystal-clear day and night footage – from home security to commercial premises, we install with mobile app setup and full aftercare',
+			'usp_1_title'  => 'Flexible Installation Scheduling',
+			'usp_1_desc'   => 'Book your survey and installation at your convenience – we plan around your schedule for professional CCTV system fitting with minimal disruption',
+			'usp_2_title'  => 'Survey from £69 with Clear Pricing',
+			'usp_2_desc'   => 'Professional site assessment and system design from £69 – transparent quotes for complete installation with no hidden charges or surprise fees',
+			'usp_3_title'  => 'Professional Installation Standards',
+			'usp_3_desc'   => 'Tidy drilling and cabling with DBS-checked engineers – we install systems properly with mobile app setup and handover demonstration',
+			'usp_4_title'  => 'All Property Types Across [location]',
+			'usp_4_desc'   => 'Residential and commercial CCTV systems – from home security to shops, offices, and warehouses with HD, IP, and wireless options',
+			'cta_text'     => 'Call For CCTV Survey & Quote',
+			'microcopy'    => 'Survey from £69 • HD quality • Professional installation',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Survey from £69',
+			'badge_3'      => 'Professional installation',
+			'badge_4'      => 'All property types',
+			'sticky_cta'   => 'Call For CCTV Survey Quote',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
