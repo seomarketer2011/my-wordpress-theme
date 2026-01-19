@@ -259,6 +259,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Safe Opening Page
+	if ( 'open-safe' === $slug || 'safe-opening' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £69',
+			'title'        => 'Safe Opening Services [location]',
+			'subtitle'     => 'Locked out of your safe? We open all safe types with non-destructive methods first – from forgotten codes to jammed mechanisms, we\'ll get you access',
+			'usp_1_title'  => 'Same-day safe opening',
+			'usp_1_desc'   => 'Same-day service for safe lockouts – we\'ll assess and open your safe with professional methods',
+			'usp_2_title'  => 'Non-destructive opening first',
+			'usp_2_desc'   => 'We attempt non-destructive methods before any invasive action – preserving your safe when possible',
+			'usp_3_title'  => 'DBS-checked safe engineers',
+			'usp_3_desc'   => 'Trusted locksmiths authorized to open all safe types – key locks, digital keypads, and mechanical dials',
+			'usp_4_title'  => 'All safe types covered',
+			'usp_4_desc'   => 'We open home safes, commercial safes, wall safes, floor safes, and high-security models – 24/7 availability',
+			'cta_text'     => 'Call Now for Safe Opening',
+			'microcopy'    => 'Same-day service • Non-destructive first • All safe types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Non-destructive',
+			'badge_3'      => 'From £69',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call 24/7 to Unlock Your Safe',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
