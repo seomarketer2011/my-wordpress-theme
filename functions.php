@@ -583,6 +583,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Safe Installation Page
+	if ( 'safe-installation' === $slug || 'safe-install' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Insurance Compliant',
+			'top_bullet_2' => 'Trusted Brands',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Safe Installation Services [location]',
+			'subtitle'     => 'Need a safe professionally installed? We supply and fit all safe types with insurance-compliant installation – from wall safes to fire-resistant models, we anchor securely to insurance standards',
+			'usp_1_title'  => 'Flexible Scheduling Available',
+			'usp_1_desc'   => 'Book at your convenience – we offer flexible installation appointments that fit around your schedule for professional safe fitting',
+			'usp_2_title'  => 'Transparent Pricing with Free Quotes',
+			'usp_2_desc'   => 'Clear quotes before we start – transparent pricing for supply and installation with no hidden charges or surprise fees',
+			'usp_3_title'  => 'Insurance-Compliant Installations',
+			'usp_3_desc'   => 'Professional anchoring to insurance standards – we install to BS7558 requirements ensuring full insurer compliance and proper security',
+			'usp_4_title'  => 'All Safe Types Across [location]',
+			'usp_4_desc'   => 'We supply and fit wall safes, floor safes, fire-resistant safes, gun cabinets, and high-security models from trusted brands like Chubbsafes, Phoenix, and Yale',
+			'cta_text'     => 'Call For Free Safe Installation Quote',
+			'microcopy'    => 'Free quotes • Insurance-compliant • Trusted brands',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Insurance-compliant',
+			'badge_4'      => 'All safe types',
+			'sticky_cta'   => 'Call For Safe Installation Quote',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
