@@ -232,6 +232,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Security Upgrades Page
+	if ( 'security-upgrades' === $slug || 'security-upgrade' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Security Upgrades [location]',
+			'subtitle'     => 'Professional security surveys and upgrades – from anti-snap locks to smart cameras, we\'ll secure your property to insurance standards',
+			'usp_1_title'  => 'Professional security survey',
+			'usp_1_desc'   => 'Comprehensive property assessment identifying vulnerabilities across doors, windows, and access points',
+			'usp_2_title'  => 'Clear upgrade pricing',
+			'usp_2_desc'   => 'Transparent quotes for all security improvements – from basic lock upgrades to full camera systems',
+			'usp_3_title'  => 'Insurance-compliant installations',
+			'usp_3_desc'   => 'BS3621 and PAS24 certified locks and security solutions meeting insurer requirements',
+			'usp_4_title'  => 'Complete security solutions',
+			'usp_4_desc'   => 'Anti-snap locks, smart cameras, door reinforcement, and 24/7 monitoring systems – all professionally installed',
+			'cta_text'     => 'Call Now For Help & Free Quote',
+			'microcopy'    => 'Security surveys • Insurance-compliant • Professional installation',
+			'badge_1'      => 'Insurance-approved',
+			'badge_2'      => 'BS3621 certified',
+			'badge_3'      => 'Smart security',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call To Book Security Survey',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
