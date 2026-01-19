@@ -664,6 +664,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Fire Doors Page
+	if ( 'fire-doors' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Building Regulations Compliant',
+			'top_bullet_2' => 'Full Inspections Available',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Fire Door Installation & Inspection [location]',
+			'subtitle'     => 'Need fire doors installed or inspected? We supply, fit, inspect and repair fire-rated doorsets with building regulations compliance – from flats to commercial premises, we ensure reliable closing, latching and proper seals',
+			'usp_1_title'  => 'Flexible Inspection & Installation Scheduling',
+			'usp_1_desc'   => 'Book your fire door inspection or installation at your convenience – we plan around your schedule for professional assessment and fitting',
+			'usp_2_title'  => 'Free Quotes with Clear Pricing',
+			'usp_2_desc'   => 'Transparent quotes for inspection, repair or installation – no hidden charges with detailed documentation for fire safety files',
+			'usp_3_title'  => 'Building Regulations Compliant',
+			'usp_3_desc'   => 'DBS-checked engineers with certified doorsets and compatible ironmongery – we ensure reliable self-closing, latching and proper gaps to standards',
+			'usp_4_title'  => 'All Property Types Across [location]',
+			'usp_4_desc'   => 'Flats, offices, schools, care homes and HMOs – interior compartment doors, stairwells, plant rooms with full inspection records',
+			'cta_text'     => 'Call For Fire Door Help',
+			'microcopy'    => 'Free quotes • Building regulations compliant • Full inspections',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Regulations compliant',
+			'badge_4'      => 'All property types',
+			'sticky_cta'   => 'Call For Fire Door Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
