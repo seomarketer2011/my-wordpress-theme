@@ -745,6 +745,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// CCTV Repairs Page
+	if ( 'cctv-repairs' === $slug || 'cctv-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'All System Types',
+			'top_bullet_2' => 'Remote & Onsite Support',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'CCTV Repairs [location]',
+			'subtitle'     => 'Need CCTV system repairs? We diagnose and fix cameras, recorders and viewing issues with professional troubleshooting – from cameras offline to recording problems, we restore your security coverage fast',
+			'usp_1_title'  => 'Flexible Scheduling Available',
+			'usp_1_desc'   => 'Book your CCTV repair at your convenience – we plan around your schedule for professional diagnosis and component replacement',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Transparent quotes for camera repairs, recorder fixes or cabling issues – no hidden charges with clear diagnosis and solution recommendations',
+			'usp_3_title'  => 'Professional Repair Standards',
+			'usp_3_desc'   => 'DBS-checked engineers fixing cameras offline, recording issues and app access – we diagnose properly and restore full system functionality',
+			'usp_4_title'  => 'All System Types [location]',
+			'usp_4_desc'   => 'HD, IP, wireless and hybrid systems – residential and commercial repairs for cameras, DVRs, NVRs, power supplies and remote viewing',
+			'cta_text'     => 'Call For CCTV Repair Help',
+			'microcopy'    => 'Free quotes • All system types • Professional diagnosis',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Professional repairs',
+			'badge_4'      => 'All system types',
+			'sticky_cta'   => 'Call For CCTV Repair Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
