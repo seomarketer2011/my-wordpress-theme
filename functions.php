@@ -1,11 +1,11 @@
 <?php
 /**
- * E3 Locksmith (Kadence Child) – Conversion UI + Speed Tweaks
+ * E3 Locksmith (Kadence Child) – Conversion UI
  *
  * - Conversion hero injected under the header (all pages)
- * - Mobile-only sticky call bar (intent-aware)
- * - No contact forms / no WhatsApp (phone only)
- * - Uses Magic Page variables (e.g. [meta_telephone]) via apply_variables() when available
+ * - Mobile sticky call bar
+ * - Per-page hero content (hardcoded for each service)
+ * - Uses Magic Page variables (e.g. [location], [meta_telephone])
  */
 
 /** ---------------------------------------------------------
@@ -33,7 +33,7 @@ function e3_locksmith_enqueue_styles() {
 }
 
 /** ---------------------------------------------------------
- * Basic speed hygiene (safe)
+ * Basic speed hygiene
  * -------------------------------------------------------- */
 add_action( 'init', 'e3_speed_hygiene' );
 function e3_speed_hygiene() {
@@ -58,101 +58,12 @@ function e3_dequeue_dashicons_for_visitors() {
 }
 
 /** ---------------------------------------------------------
- * Intent detection (emergency vs same_day vs planned)
- * - Order: emergency keywords win, same_day keywords next, planned keywords next, default emergency
- * -------------------------------------------------------- */
-function e3_get_page_intent( $post_id = 0 ) {
-	if ( ! $post_id ) {
-		$post_id = get_queried_object_id();
-	}
-
-	// Per-page override (optional)
-	$override = $post_id ? get_post_meta( $post_id, '_e3_intent', true ) : '';
-	if ( in_array( $override, array( 'emergency', 'same_day', 'planned' ), true ) ) {
-		return $override;
-	}
-	if ( 'off' === $override ) {
-		return 'off';
-	}
-
-	$uri   = isset( $_SERVER['REQUEST_URI'] ) ? strtolower( (string) $_SERVER['REQUEST_URI'] ) : '';
-	$title = $post_id ? strtolower( (string) get_the_title( $post_id ) ) : '';
-
-	$haystack = $uri . ' ' . $title;
-
-	$emergency = array(
-		'locked-out', 'lockout', 'emergency', '24-hour', '24hour', 'burglary', 'break-in', 'breakin',
-		'lost-keys', 'lost-key', 'snapped-key', 'broken-key', 'key-broken', 'key-extraction',
-		'door-opening', 'gain-entry', 'upvc-repair'
-	);
-
-	foreach ( $emergency as $k ) {
-		if ( false !== strpos( $haystack, $k ) ) {
-			return 'emergency';
-		}
-	}
-
-	$same_day = array(
-		'same-day', 'sameday', 'today', 'urgent', 'fast', 'quick', 'rapid'
-	);
-
-	foreach ( $same_day as $k ) {
-		if ( false !== strpos( $haystack, $k ) ) {
-			return 'same_day';
-		}
-	}
-
-	$planned = array(
-		'lock-change', 'lock-replacement', 'replace-lock', 'new-lock', 'install', 'installation',
-		'upgrade', 'security-upgrade', 'smart-lock', 'rekey', 'key-cut', 'spare-key', 'lock-fitting',
-		'quote', 'pricing', 'price', 'cost'
-	);
-
-	foreach ( $planned as $k ) {
-		if ( false !== strpos( $haystack, $k ) ) {
-			return 'planned';
-		}
-	}
-
-	// Default (safer for locksmith sites)
-	return 'emergency';
-}
-
-
-/** ---------------------------------------------------------
- * Helper: per-page overrides (Custom Fields)
- * -------------------------------------------------------- */
-function e3_get_page_override( $post_id, $key ) {
-	if ( ! $post_id ) { $post_id = get_queried_object_id(); }
-	if ( ! $post_id ) { return ''; }
-
-	$val = get_post_meta( $post_id, $key, true );
-
-	// WordPress treats meta keys starting with "_" as protected, and the built-in Custom Fields UI
-	// often refuses to save them ("Sorry, you are not allowed to do that.").
-	// To keep things newbie-friendly, we support BOTH forms:
-	//   _e3_hero_title  (protected)  and  e3_hero_title (unprotected)
-	if ( '' === $val || null === $val ) {
-		$alt = $key;
-		if ( is_string( $key ) && strlen( $key ) > 0 ) {
-			$alt = ( '_' === $key[0] ) ? substr( $key, 1 ) : '_' . $key;
-		}
-		if ( $alt && $alt !== $key ) {
-			$val = get_post_meta( $post_id, $alt, true );
-		}
-	}
-
-	return is_string( $val ) ? trim( $val ) : '';
-}
-
-/** ---------------------------------------------------------
- * Helper: apply Magic Page variables to a string if available
+ * Magic Page Helper Functions
  * -------------------------------------------------------- */
 function e3_get_magicpage_term() {
 	// Magic Page plugin provides the most reliable context for [meta_*] tokens.
 	if ( function_exists( 'get_location_object' ) ) {
 		$term = get_location_object();
-		// Some plugin calls return an array with term at index 0.
 		if ( is_array( $term ) && isset( $term[0] ) ) {
 			$term = $term[0];
 		}
@@ -161,7 +72,6 @@ function e3_get_magicpage_term() {
 		}
 	}
 
-	// Fallbacks (in case plugin functions differ between installs).
 	if ( function_exists( 'get_magicpage_location' ) ) {
 		$term = get_magicpage_location();
 		if ( is_array( $term ) && isset( $term[0] ) ) {
@@ -179,7 +89,6 @@ function e3_apply_magicpage_vars( $html ) {
 	// Replace Magic Page tokens like [meta_telephone] in theme-injected markup.
 	if ( function_exists( 'apply_variables' ) ) {
 		$term = e3_get_magicpage_term();
-		// Pass $term so [meta_*] replacements work (they require term_id).
 		return $term ? apply_variables( $html, $term ) : apply_variables( $html );
 	}
 	return $html;
@@ -190,11 +99,9 @@ function e3_get_phone_display() {
 
 	$term = e3_get_magicpage_term();
 	if ( $term && isset( $term->term_id ) ) {
-		// Most installs store the token name as the term meta key (e.g. telephone).
 		$phone = (string) get_term_meta( $term->term_id, 'telephone', true );
 	}
 
-	// If not present, try the token replacement.
 	if ( '' === trim( $phone ) ) {
 		$maybe = e3_apply_magicpage_vars( '[meta_telephone]' );
 		if ( is_string( $maybe ) && '[meta_telephone]' !== $maybe ) {
@@ -210,14 +117,25 @@ function e3_phone_to_tel_href( $phone ) {
 	if ( '' === $raw ) {
 		return '';
 	}
-	// Keep only digits and plus for a clean tel: link.
 	$clean = preg_replace( '/[^0-9+]/', '', $raw );
 	return $clean ? 'tel:' . $clean : '';
 }
 
+/** ---------------------------------------------------------
+ * Check if hero should be disabled for a page
+ * -------------------------------------------------------- */
+function e3_is_hero_enabled( $post_id = 0 ) {
+	if ( ! $post_id ) {
+		$post_id = get_queried_object_id();
+	}
+
+	// Check for _e3_hero_off meta field to disable hero on specific pages
+	$disabled = $post_id ? get_post_meta( $post_id, '_e3_hero_off', true ) : '';
+	return ( 'yes' !== $disabled && '1' !== $disabled );
+}
 
 /** ---------------------------------------------------------
- * Simple Default Hero Content (fallback for unconfigured pages)
+ * Default Hero Content (fallback for pages without specific content)
  * -------------------------------------------------------- */
 function e3_get_default_hero_content() {
 	return array(
@@ -246,8 +164,7 @@ function e3_get_default_hero_content() {
 }
 
 /** ---------------------------------------------------------
- * Per-Page Hero Content (hardcoded for specific pages)
- * Takes priority over intent-based content
+ * Per-Page Hero Content (add your custom pages here)
  * -------------------------------------------------------- */
 function e3_get_page_specific_hero_content( $post_id ) {
 	if ( ! $post_id ) {
@@ -261,93 +178,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 	// Page-specific hero content by slug or ID
 	$page_content = array();
 
-	// Commercial Locksmiths Page
-	if ( 'commercial-locksmiths' === $slug || 'commercial-locksmith' === $slug ) {
-		$page_content = array(
-			'top_label'    => 'Business Locksmith:',
-			'top_bullet_1' => '30-min response',
-			'top_bullet_2' => 'No call-out fee',
-			'top_bullet_3' => 'DBS checked',
-			'title'        => 'Commercial Locksmith Services [location] – Business Access & Security',
-			'subtitle'     => 'Locked out or need security upgrades? We serve businesses across [location] with rapid response and professional key control solutions',
-			'usp_1_title'  => 'Rapid business lockout response',
-			'usp_1_desc'   => '30-minute emergency callout to get your premises open and staff back to work',
-			'usp_2_title'  => 'Zero call-out charges',
-			'usp_2_desc'   => 'Speak to us first, get clear pricing, only pay for completed work',
-			'usp_3_title'  => 'DBS-checked commercial engineers',
-			'usp_3_desc'   => 'Trusted, vetted locksmiths for your business premises and security systems',
-			'usp_4_title'  => 'Master key systems & rekeying',
-			'usp_4_desc'   => 'Full key control for businesses – manage staff access and eliminate lost key risks',
-			'cta_text'     => 'Call for Business Locksmith',
-			'microcopy'    => '30-min response • Master key systems • No call-out fees',
-			'badge_1'      => 'DBS checked',
-			'badge_2'      => 'Business focused',
-			'badge_3'      => '30-min response',
-			'badge_4'      => 'Key control experts',
-			'sticky_cta'   => 'Call 24/7 For Help',
-		);
-	}
-
-	// Burglary Repair Services Page
-	if ( 'burglary-repair-services' === $slug || 'burglary-repair' === $slug ) {
-		$page_content = array(
-			'top_label'    => 'Call us 24/7',
-			'top_bullet_1' => '24/7 response',
-			'top_bullet_2' => 'Make safe service',
-			'top_bullet_3' => 'Insurance support',
-			'title'        => 'Emergency Burglary Repair Services [location] – We\'ll Make Your Property Safe',
-			'subtitle'     => 'Been broken into? We\'ll secure your property immediately with 24/7 emergency response, frame repairs, and insurance documentation support',
-			'usp_1_title'  => '24/7 emergency callout',
-			'usp_1_desc'   => 'Rapid response to secure your property after a break-in – we\'ll make it safe tonight',
-			'usp_2_title'  => 'Insurance claim assistance',
-			'usp_2_desc'   => 'Professional documentation and reports for your insurance claim with transparent pricing',
-			'usp_3_title'  => 'Complete Damage Repairs',
-			'usp_3_desc'   => 'Frame repairs, lock replacement, and full security assessment to prevent repeat entry',
-			'usp_4_title'  => 'DBS-Checked Locksmiths',
-			'usp_4_desc'   => 'Trusted, vetted locksmiths who understand the distress and urgency of break-ins',
-			'cta_text'     => 'Call 24/7 For Help',
-			'microcopy'    => '24/7 emergency response • Make safe service • Insurance support',
-			'badge_1'      => '24/7 available',
-			'badge_2'      => 'Make safe service',
-			'badge_3'      => 'Insurance help',
-			'badge_4'      => 'DBS checked',
-			'sticky_cta'   => 'Call for Burglar Repair Help',
-		);
-	}
-
-	// Security Grilles Page (Post ID: 381)
-	if ( 381 === $post_id || 'security-grilles' === $slug || 'security-grille' === $slug || 'security-grille-lock-repairs' === $slug || 'security-grille-lock-repair' === $slug ) {
-		$page_content = array(
-			'top_label'    => 'Call us 24/7',
-			'top_bullet_1' => 'Book today',
-			'top_bullet_2' => 'Fixed pricing',
-			'top_bullet_3' => 'From £69',
-			'title'        => 'Security Grille Lock Repair [location] – Same-Day Service Available',
-			'subtitle'     => 'Grille stuck or stiff? We\'ll restore lock function with same-day repair service – book today and get your mechanism working smoothly',
-			'usp_1_title'  => 'Same-day grille lock repair',
-			'usp_1_desc'   => 'Book before 2pm for same-day service – we fix jammed, stiff, or binding grille mechanisms',
-			'usp_2_title'  => 'Clear repair pricing',
-			'usp_2_desc'   => 'Fixed-price repairs quoted upfront – no parts charged unless necessary',
-			'usp_3_title'  => 'Repair-first specialists',
-			'usp_3_desc'   => 'We restore existing lock function rather than replace – professional diagnosis and testing',
-			'usp_4_title'  => 'DBS-checked engineers',
-			'usp_4_desc'   => 'Trusted locksmiths for commercial security grille repairs and servicing',
-			'cta_text'     => 'Call for Grille Repair',
-			'microcopy'    => 'Same-day service • Repair-first • Clear pricing',
-			'badge_1'      => 'Same-day service',
-			'badge_2'      => 'Repair-focused',
-			'badge_3'      => 'Fixed pricing',
-			'badge_4'      => 'DBS checked',
-			'sticky_cta'   => 'Call for Same-Day Repair',
-		);
-		// DEBUG: Log that we matched this page
-		error_log( 'E3 Hero: Matched Security Grilles Page - Post ID: ' . $post_id . ', Slug: ' . $slug );
-	}
-
-	// Add more pages here as needed
-	// Example:
-	// if ( 'emergency-locksmith' === $slug ) {
-	//     $page_content = array( ... );
+	// ADD YOUR PAGES HERE
+	// Example format:
+	//
+	// if ( 'your-page-slug' === $slug ) {
+	//     $page_content = array(
+	//         'top_label'    => 'Call us 24/7',
+	//         'top_bullet_1' => '30-min response',
+	//         'top_bullet_2' => 'No call-out fee',
+	//         'top_bullet_3' => 'DBS checked',
+	//         'title'        => 'Your Page Title [location]',
+	//         'subtitle'     => 'Your page subtitle with [location] tokens',
+	//         'usp_1_title'  => 'First USP Title',
+	//         'usp_1_desc'   => 'First USP description',
+	//         'usp_2_title'  => 'Second USP Title',
+	//         'usp_2_desc'   => 'Second USP description',
+	//         'usp_3_title'  => 'Third USP Title',
+	//         'usp_3_desc'   => 'Third USP description',
+	//         'usp_4_title'  => 'Fourth USP Title',
+	//         'usp_4_desc'   => 'Fourth USP description',
+	//         'cta_text'     => 'Call Button Text',
+	//         'microcopy'    => 'Small text under button',
+	//         'badge_1'      => 'Badge 1',
+	//         'badge_2'      => 'Badge 2',
+	//         'badge_3'      => 'Badge 3',
+	//         'badge_4'      => 'Badge 4',
+	//         'sticky_cta'   => 'Mobile Sticky Button Text',
+	//     );
 	// }
 
 	return ! empty( $page_content ) ? $page_content : null;
@@ -358,11 +215,10 @@ function e3_get_page_specific_hero_content( $post_id ) {
  * -------------------------------------------------------- */
 add_action( 'wp', 'e3_maybe_remove_kadence_default_titles' );
 function e3_maybe_remove_kadence_default_titles() {
-	$intent = e3_get_page_intent();
-	if ( 'off' === $intent ) {
+	if ( ! e3_is_hero_enabled() ) {
 		return;
 	}
-	// Kadence adds Kadence\kadence_entry_header() to these actions in inc/template-hooks.php
+	// Kadence adds Kadence\kadence_entry_header() to these actions
 	remove_action( 'kadence_entry_header', 'Kadence\kadence_entry_header', 10 );
 	remove_action( 'kadence_entry_hero', 'Kadence\kadence_entry_header', 10 );
 }
@@ -372,58 +228,32 @@ function e3_maybe_remove_kadence_default_titles() {
  * -------------------------------------------------------- */
 add_action( 'kadence_after_header', 'e3_output_conversion_hero', 5 );
 function e3_output_conversion_hero() {
-	if ( is_admin() || is_feed() || is_robots() ) {
+	if ( is_admin() || is_feed() || is_robots() || is_attachment() ) {
 		return;
 	}
 
 	$post_id = get_queried_object_id();
-	// Show on most front-end pages (including Magic Page CPTs)
-	if ( is_attachment() ) {
+
+	if ( ! e3_is_hero_enabled( $post_id ) ) {
 		return;
 	}
 
-	$intent = e3_get_page_intent( $post_id );
-	if ( 'off' === $intent ) {
-		return;
-	}
-
-	// Check for page-specific hero content first (takes priority)
+	// Check for page-specific hero content first
 	$page_specific_content = e3_get_page_specific_hero_content( $post_id );
-	$has_page_specific = ( null !== $page_specific_content );
 
-	// If no page-specific content, use simple default
-	if ( null === $page_specific_content ) {
-		$content = e3_get_default_hero_content();
-	} else {
+	// Use page-specific content or fall back to default
+	if ( null !== $page_specific_content ) {
 		$content = $page_specific_content;
-	}
-
-	// Allow per-page custom field overrides ONLY if there's no hardcoded page-specific content
-	if ( ! $has_page_specific ) {
-		$title = e3_get_page_override( $post_id, '_e3_hero_title' );
-		if ( '' === $title ) { $title = $content['title']; }
-
-		$sub = e3_get_page_override( $post_id, '_e3_hero_sub' );
-		if ( '' === $sub ) { $sub = $content['subtitle']; }
-
-		$cta = e3_get_page_override( $post_id, '_e3_hero_cta' );
-		if ( '' === $cta ) { $cta = $content['cta_text']; }
-
-		$micro = e3_get_page_override( $post_id, '_e3_hero_micro' );
-		if ( '' === $micro ) { $micro = $content['microcopy']; }
-
-		$top_label = e3_get_page_override( $post_id, '_e3_hero_toplabel' );
-		if ( '' === $top_label ) { $top_label = $content['top_label']; }
 	} else {
-		// Page-specific content - use it directly, ignore custom fields
-		$title = $content['title'];
-		$sub = $content['subtitle'];
-		$cta = $content['cta_text'];
-		$micro = $content['microcopy'];
-		$top_label = $content['top_label'];
+		$content = e3_get_default_hero_content();
 	}
 
-	$bg_url = e3_get_page_override( $post_id, '_e3_hero_bg_url' );
+	// Get all content fields
+	$top_label = $content['top_label'];
+	$title     = $content['title'];
+	$sub       = $content['subtitle'];
+	$cta       = $content['cta_text'];
+	$micro     = $content['microcopy'];
 
 	$phone_display = e3_get_phone_display();
 	$phone_href    = e3_phone_to_tel_href( $phone_display );
@@ -435,13 +265,7 @@ function e3_output_conversion_hero() {
 	$icon_pin = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 22s7-4.44 7-11a7 7 0 1 0-14 0c0 6.56 7 11 7 11Zm0-9.5A2.5 2.5 0 1 1 12 7a2.5 2.5 0 0 1 0 5Z"/></svg>';
 	$icon_phone = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.21 2.2Z"/></svg>';
 
-
-	$style_attr = '';
-	if ( '' !== $bg_url ) {
-		$style_attr = ' style="--e3-hero-bg:url(\'' . esc_url( $bg_url ) . '\')"';
-	}
-	$html  = '<!-- E3 Hero Debug: Post ID=' . $post_id . ', Has Page Specific=' . ( $has_page_specific ? 'YES' : 'NO' ) . ', Top Label=' . esc_attr( $top_label ) . ' -->';
-	$html .= '<section class="e3-hero e3-hero--' . esc_attr( $intent ) . '"' . $style_attr . '>';
+	$html  = '<section class="e3-hero">';
 	$html .= '  <div class="e3-hero__wrap">';
 	$html .= '    <div class="e3-topstrip">';
 	$html .= '      <span class="e3-topstrip__label">' . esc_html( $top_label ) . '</span> ';
@@ -476,7 +300,7 @@ function e3_output_conversion_hero() {
 	$html .= '        </div>';
 	$html .= '      </div>';
 	$html .= '      <div class="e3-hero__side" aria-hidden="true"></div>';
-	$html .= '    </div>'; // grid
+	$html .= '    </div>';
 	$html .= '  </div>';
 	$html .= '</section>';
 
@@ -488,11 +312,7 @@ function e3_output_conversion_hero() {
  * -------------------------------------------------------- */
 add_filter( 'body_class', 'e3_body_class_sticky_call' );
 function e3_body_class_sticky_call( $classes ) {
-	if ( is_admin() ) {
-		return $classes;
-	}
-	$intent = e3_get_page_intent();
-	if ( 'off' !== $intent ) {
+	if ( ! is_admin() && e3_is_hero_enabled() ) {
 		$classes[] = 'e3-has-sticky-call';
 	}
 	return $classes;
@@ -504,22 +324,21 @@ function e3_output_sticky_call_bar() {
 		return;
 	}
 
-	$intent = e3_get_page_intent();
-	if ( 'off' === $intent ) {
+	$post_id = get_queried_object_id();
+
+	if ( ! e3_is_hero_enabled( $post_id ) ) {
 		return;
 	}
 
-	// Check for page-specific hero content first (takes priority)
-	$post_id = get_queried_object_id();
+	// Check for page-specific hero content first
 	$content = e3_get_page_specific_hero_content( $post_id );
 
-	// If no page-specific content, use simple default
+	// Use page-specific content or fall back to default
 	if ( null === $content ) {
 		$content = e3_get_default_hero_content();
 	}
 
-	$cta = e3_get_page_override( get_queried_object_id(), '_e3_sticky_cta' );
-	if ( '' === $cta ) { $cta = $content['sticky_cta']; }
+	$cta = $content['sticky_cta'];
 	$phone_display = e3_get_phone_display();
 	$phone_href    = e3_phone_to_tel_href( $phone_display );
 
