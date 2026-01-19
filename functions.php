@@ -826,6 +826,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Access Control Installers Page
+	if ( 'access-control-installers' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'All Access Systems',
+			'top_bullet_2' => 'Professional Installation',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Access Control Installation [location]',
+			'subtitle'     => 'Need access control installed? We design and fit keypad, fob, biometric and app entry systems with user management – from offices to multi-tenant buildings, we install with timed access and audit trails for complete control',
+			'usp_1_title'  => 'Flexible Scheduling Available',
+			'usp_1_desc'   => 'Book your access control installation at your convenience – we plan around your schedule for professional site surveys and system fitting',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Transparent quotes for complete installation – no hidden charges with professional site assessment and configuration included',
+			'usp_3_title'  => 'Professional Installation Standards',
+			'usp_3_desc'   => 'DBS-checked engineers with electric strikes, maglocks and monitoring – we configure time-based access, user permissions and audit trails properly',
+			'usp_4_title'  => 'All Property Types [location]',
+			'usp_4_desc'   => 'Offices, multi-tenant blocks, restricted areas and multi-site – keypad, fob, biometric, app and video door entry systems',
+			'cta_text'     => 'Call For Access Control Quote',
+			'microcopy'    => 'Free quotes • All access systems • Professional installation',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Professional installation',
+			'badge_4'      => 'All property types',
+			'sticky_cta'   => 'Call For Access Control Quote',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
