@@ -394,6 +394,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Lock Change Page
+	if ( 'lock-change' === $slug || 'lock-changes' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Lock Change Services [location]',
+			'subtitle'     => 'Moving home or lost your keys? We change all lock types with same-day service – new keys, fresh security, complete peace of mind',
+			'usp_1_title'  => 'Same-day lock changes',
+			'usp_1_desc'   => 'Fast response for lock changes – we replace locks for new properties, lost keys, tenant changes, and security upgrades',
+			'usp_2_title'  => 'Transparent pricing',
+			'usp_2_desc'   => 'Clear quotes upfront – we choose the correct lock type, fit it properly, and test for reliable operation',
+			'usp_3_title'  => 'Security-focused service',
+			'usp_3_desc'   => 'Professional lock changes with correct sizing, alignment testing, and security grade options – DBS-checked engineers',
+			'usp_4_title'  => 'All lock types changed',
+			'usp_4_desc'   => 'We change euro cylinders, mortice locks, nightlatches, and multipoint systems – keyed-alike options available',
+			'cta_text'     => 'Call for Free Lock Change Quote',
+			'microcopy'    => 'Same-day service • Professional fitting • All lock types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'New keys included',
+			'badge_3'      => 'Security-focused',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call 24/7 for Lock Change Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
