@@ -637,6 +637,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Outdoor CCTV Installation Page
+	if ( 'outdoor-cctv-installation' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Weatherproof Systems',
+			'top_bullet_2' => 'HD Day & Night Footage',
+			'top_bullet_3' => 'Survey from £69',
+			'title'        => 'Outdoor CCTV Installation [location]',
+			'subtitle'     => 'Need external CCTV installed? We design and fit weatherproof camera systems with crystal-clear day and night footage – from driveways to gardens and perimeter boundaries, we install with proper sealing and outdoor cabling',
+			'usp_1_title'  => 'Flexible Installation Scheduling',
+			'usp_1_desc'   => 'Book your outdoor survey and installation at your convenience – we plan around your schedule for professional external CCTV fitting with minimal disruption',
+			'usp_2_title'  => 'Survey from £69 with Clear Pricing',
+			'usp_2_desc'   => 'Professional site assessment and system design from £69 – transparent quotes for weatherproof installation with no hidden charges or surprise fees',
+			'usp_3_title'  => 'Weatherproof Installation Standards',
+			'usp_3_desc'   => 'IP65/66/67 rated cameras with DBS-checked engineers – safe drilling, external sealing, and secure fixings for all weather conditions',
+			'usp_4_title'  => 'Complete Perimeter Coverage [location]',
+			'usp_4_desc'   => 'Driveways, gardens, gates, and boundaries – bullet, turret, and PTZ cameras for front doors, side paths, and outbuildings',
+			'cta_text'     => 'Call For Outdoor CCTV Survey',
+			'microcopy'    => 'Survey from £69 • Weatherproof systems • HD day & night',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Survey from £69',
+			'badge_3'      => 'Weatherproof rated',
+			'badge_4'      => 'Perimeter coverage',
+			'sticky_cta'   => 'Call For Outdoor CCTV Quote',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
