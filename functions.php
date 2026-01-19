@@ -556,6 +556,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Lock Out Services Page
+	if ( 'lock-out' === $slug || 'lockout' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Available 24/7',
+			'top_bullet_2' => 'No Call-Out Fee',
+			'top_bullet_3' => '30-min Response Time',
+			'title'        => 'Lock Out Services [location]',
+			'subtitle'     => 'Locked out of your home or business? We get you back in fast with 30-minute emergency response – from keys inside to seized locks, we use non-destructive entry where possible',
+			'usp_1_title'  => 'Fast lockout response',
+			'usp_1_desc'   => '30-minute response for lockouts – we prioritize emergency calls and get you back inside fast when you\'re locked out of your property',
+			'usp_2_title'  => 'Non-destructive entry first',
+			'usp_2_desc'   => 'We aim for lock-picking and non-destructive methods first – saving your locks and avoiding costly replacements where possible',
+			'usp_3_title'  => '24/7 emergency availability',
+			'usp_3_desc'   => 'Locked out at 2am? We\'re available 24/7 for all lockout emergencies – residential, commercial, and managed buildings covered',
+			'usp_4_title'  => 'Transparent pricing',
+			'usp_4_desc'   => 'Clear quotes before we start – from £63 for non-destructive entry, with no hidden charges or surprise fees',
+			'cta_text'     => 'Call Now For Lockout Help',
+			'microcopy'    => '30-min response • 24/7 availability • Non-destructive entry',
+			'badge_1'      => '24/7 emergency service',
+			'badge_2'      => '30-min response',
+			'badge_3'      => 'Non-destructive entry',
+			'badge_4'      => 'No call-out fee',
+			'sticky_cta'   => 'Call Now For Emergency Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
