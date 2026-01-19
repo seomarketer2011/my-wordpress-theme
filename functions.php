@@ -475,6 +475,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Emergency Locksmith Page
+	if ( 'emergency-locksmith' === $slug || 'emergency-locksmiths' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Available 24/7',
+			'top_bullet_2' => 'No Call-Out Fee',
+			'top_bullet_3' => '30-min Response Time',
+			'title'        => 'Emergency Locksmith [location]',
+			'subtitle'     => 'Locked out? Key snapped? We provide fast emergency locksmith service with 30-minute response – from lockouts to jammed locks, we get you back in quickly with minimal damage',
+			'usp_1_title'  => 'Fast emergency response',
+			'usp_1_desc'   => '30-minute response for most lockouts – we prioritize emergency calls and get to you fast when you\'re locked out of your home or business',
+			'usp_2_title'  => 'Non-destructive entry first',
+			'usp_2_desc'   => 'We aim for lock-picking and non-destructive methods first – saving your locks and avoiding costly replacements where possible',
+			'usp_3_title'  => '24/7 emergency availability',
+			'usp_3_desc'   => 'Locked out at 3am? We\'re available 24/7 for all lockout emergencies – lost keys, keys inside, snapped keys, or jammed locks',
+			'usp_4_title'  => 'Transparent emergency pricing',
+			'usp_4_desc'   => 'Clear quotes before we start – no hidden charges or surprise fees, even for out-of-hours emergency callouts',
+			'cta_text'     => 'Call Now For Emergency Locksmith',
+			'microcopy'    => '30-min response • 24/7 availability • Non-destructive entry',
+			'badge_1'      => '24/7 emergency service',
+			'badge_2'      => '30-min response',
+			'badge_3'      => 'Non-destructive entry',
+			'badge_4'      => 'No call-out fee',
+			'sticky_cta'   => 'Call Now For Emergency Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
