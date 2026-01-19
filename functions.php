@@ -718,6 +718,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Fire Door Repair Page
+	if ( 'fire-door-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Regulations Compliant',
+			'top_bullet_2' => 'All Components Repaired',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Fire Door Repair [location]',
+			'subtitle'     => 'Need fire door repairs? We fix closers, hinges, latches, seals and gaps with building regulations compliance – from flats to commercial premises, we restore reliable closing, latching and proper fire protection',
+			'usp_1_title'  => 'Flexible Scheduling Available',
+			'usp_1_desc'   => 'Book your fire door repair at your convenience – we plan around your schedule for professional assessment and component replacement',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Transparent quotes for closer adjustment, seal replacement or hinge repairs – no hidden charges with detailed documentation for fire safety files',
+			'usp_3_title'  => 'Compliance Restored',
+			'usp_3_desc'   => 'DBS-checked engineers fixing doors that won\'t close or latch – we restore reliable self-closing, proper gaps and intumescent seals to standards',
+			'usp_4_title'  => 'All Property Types [location]',
+			'usp_4_desc'   => 'Flats, offices, schools, care homes and HMOs – closers, hinges, latches, seals, strips with full repair records',
+			'cta_text'     => 'Call For Fire Door Repair',
+			'microcopy'    => 'Free quotes • Regulations compliant • All components',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Compliance restored',
+			'badge_4'      => 'All property types',
+			'sticky_cta'   => 'Call For Fire Door Repair',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
