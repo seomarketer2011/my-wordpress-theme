@@ -313,6 +313,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Lock Repair Page
+	if ( 'lock-repair' === $slug || 'lock-repairs' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £59',
+			'title'        => 'Lock Repair Services [location]',
+			'subtitle'     => 'Lock stiff, grinding, or key won\'t turn? We repair all lock types with same-day service – from uPVC multipoint locks to mortice and cylinder locks',
+			'usp_1_title'  => 'Same-day lock repairs',
+			'usp_1_desc'   => 'Fast response for lock issues – we fix stiff locks, worn mechanisms, and misaligned multipoint systems with professional service',
+			'usp_2_title'  => 'Clear pricing from £59',
+			'usp_2_desc'   => 'Transparent hourly rates – weekday repairs from £59/hr, evenings/weekends from £69/hr, parts quoted separately',
+			'usp_3_title'  => 'Repair-first specialists',
+			'usp_3_desc'   => 'We diagnose and repair existing locks rather than automatic replacement – saving you money when repair is viable',
+			'usp_4_title'  => 'All lock types covered',
+			'usp_4_desc'   => 'We repair euro cylinders, multipoint mechanisms, mortice locks, rim cylinders, and window locks – common parts carried',
+			'cta_text'     => 'Call Now For Lock Repairs',
+			'microcopy'    => 'Same-day service • Repair-first approach • All lock types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Repair-focused',
+			'badge_3'      => 'From £59',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call 24/7 for Lock Repair Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
