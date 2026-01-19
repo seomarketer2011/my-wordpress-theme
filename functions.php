@@ -529,6 +529,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Emergency Boarding Up Page
+	if ( 'emergency-boarding-up' === $slug || 'boarding-up' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Available 24/7',
+			'top_bullet_2' => 'No Call-Out Fee',
+			'top_bullet_3' => '30-min Response Time',
+			'title'        => 'Emergency Boarding Up [location]',
+			'subtitle'     => 'Window smashed or door damaged? We secure your property with emergency boarding up – from broken windows to forced doors, we make your property safe and weatherproof fast',
+			'usp_1_title'  => 'Rapid emergency boarding',
+			'usp_1_desc'   => '30-minute response for property damage – we prioritize emergency boarding calls and secure your property fast when you need immediate protection',
+			'usp_2_title'  => 'Complete property protection',
+			'usp_2_desc'   => 'We board broken windows, damaged doors, and forced frames – making safe dangerous glass and securing all openings against weather and intruders',
+			'usp_3_title'  => '24/7 emergency availability',
+			'usp_3_desc'   => 'Break-in or vandalism at 3am? We\'re available 24/7 for emergency boarding up – residential and commercial properties secured professionally',
+			'usp_4_title'  => 'Transparent pricing',
+			'usp_4_desc'   => 'Clear quotes before we start – no hidden charges or surprise fees, with insurance documentation provided for your claims',
+			'cta_text'     => 'Call Now For Emergency Boarding Up',
+			'microcopy'    => '24/7 availability • Complete protection • Insurance documentation',
+			'badge_1'      => '24/7 emergency service',
+			'badge_2'      => '30-min response',
+			'badge_3'      => 'Insurance support',
+			'badge_4'      => 'No call-out fee',
+			'sticky_cta'   => 'Call Now For Emergency Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
