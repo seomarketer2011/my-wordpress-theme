@@ -853,6 +853,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Alarm Repairs Page
+	if ( 'alarm-repairs' === $slug || 'alarm-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'All Alarm Types',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Alarm Repairs [location]',
+			'subtitle'     => 'Need alarm repairs? We diagnose and fix burglar, fire and smoke alarms with professional troubleshooting – from false alarms to sensor faults, we restore your alarm system fast with same-day service',
+			'usp_1_title'  => 'Same-Day Alarm Repairs',
+			'usp_1_desc'   => 'Alarm keeps going off or showing faults? We offer same-day alarm repairs – fast diagnosis and professional fixes to restore your security system quickly',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Transparent quotes for alarm repairs and component replacement – no hidden charges with clear fault diagnosis and solution recommendations',
+			'usp_3_title'  => 'Professional Repair Standards',
+			'usp_3_desc'   => 'DBS-checked engineers fixing false alarms, sensor faults, keypad issues and power problems – we diagnose properly and restore full system functionality',
+			'usp_4_title'  => 'All Alarm Types [location]',
+			'usp_4_desc'   => 'Burglar alarms, fire alarms, smoke/CO detectors and panic alarms – wired, wireless and hybrid systems for residential and commercial',
+			'cta_text'     => 'Call For Alarm Repair Help',
+			'microcopy'    => 'Same day service • All alarm types • Professional diagnosis',
+			'badge_1'      => 'Same day service',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Professional repairs',
+			'badge_4'      => 'All alarm types',
+			'sticky_cta'   => 'Call For Alarm Repair Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
