@@ -185,7 +185,7 @@ function e3_get_page_specific_hero_content( $post_id ) {
 			'top_bullet_1' => 'Same Day Service',
 			'top_bullet_2' => 'No call-out fee',
 			'top_bullet_3' => 'Free Quotes',
-			'title'        => 'Commercial Locksmith Services [location] – Fast Business Lockout & Security Solutions',
+			'title'        => 'Commercial Locksmith Services [location]',
 			'subtitle'     => 'Locked out or need security upgrades? We serve businesses across [location] with rapid emergency response and professional master key systems',
 			'usp_1_title'  => 'Rapid business lockout response',
 			'usp_1_desc'   => '30-minute emergency callout to get your premises open and staff back to work',
