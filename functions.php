@@ -340,6 +340,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Door Lock Replacement Page
+	if ( 'door-lock-replacement' === $slug || 'lock-replacement' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £65',
+			'title'        => 'Door Lock Replacement [location]',
+			'subtitle'     => 'Need locks replaced after a break-in or lost keys? We install all lock types with same-day service – from euro cylinders to multipoint and smart locks',
+			'usp_1_title'  => 'Same-day lock replacement',
+			'usp_1_desc'   => 'Fast response for lock changes – we replace worn, damaged, or compromised locks with professional installation and testing',
+			'usp_2_title'  => 'Clear pricing from £65',
+			'usp_2_desc'   => 'Transparent quotes upfront – euro cylinders from £65, standard locks from £75, with insurance-approved options available',
+			'usp_3_title'  => 'Insurance-approved installations',
+			'usp_3_desc'   => 'BS3621 certified locks and TS007 rated cylinders meeting insurer requirements – proper alignment and testing guaranteed',
+			'usp_4_title'  => 'All lock types available',
+			'usp_4_desc'   => 'We install mortice locks, euro cylinders, multipoint mechanisms, smart locks, and commercial maglocks – residential and business properties',
+			'cta_text'     => 'Call Now for Lock Replacement',
+			'microcopy'    => 'Same-day service • Insurance-approved • All lock types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Insurance-approved',
+			'badge_3'      => 'From £65',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call 24/7 For Lock Replacements',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
