@@ -421,6 +421,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Window Lock Repairs Page
+	if ( 'window-lock-repairs' === $slug || 'window-lock-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Window Lock Repairs [location]',
+			'subtitle'     => 'Window lock stiff, loose, or won\'t engage? We repair all window lock types with same-day service – from uPVC to casement and tilt & turn mechanisms',
+			'usp_1_title'  => 'Same-day window lock repairs',
+			'usp_1_desc'   => 'Fast response for window security issues – we fix stiff locks, loose handles, misaligned mechanisms, and broken window locks professionally',
+			'usp_2_title'  => 'Transparent pricing',
+			'usp_2_desc'   => 'Clear quotes upfront – we diagnose the issue properly before recommending repair or replacement options',
+			'usp_3_title'  => 'Security-focused repairs',
+			'usp_3_desc'   => 'Professional window lock repairs restoring security and smooth operation – DBS-checked engineers for your peace of mind',
+			'usp_4_title'  => 'All window types covered',
+			'usp_4_desc'   => 'We repair uPVC espagnolette locks, casement handles, cockspur mechanisms, tilt & turn locks, and timber window locks',
+			'cta_text'     => 'Call for Window Lock Repair',
+			'microcopy'    => 'Same-day service • All window types • Professional repairs',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Security-focused',
+			'badge_3'      => 'Free quotes',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call Now for Window Lock Repairs',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
