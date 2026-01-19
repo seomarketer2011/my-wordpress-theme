@@ -691,6 +691,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Door Closers Page
+	if ( 'door-closers' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Fire Door Compliant',
+			'top_bullet_2' => 'Expert Adjustment',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Door Closer Installation & Repair [location]',
+			'subtitle'     => 'Need door closers fitted or adjusted? We install, repair and fine-tune all closer types with expert adjustment – from fire doors to commercial premises, we ensure controlled closing without slamming',
+			'usp_1_title'  => 'Flexible Installation & Adjustment Scheduling',
+			'usp_1_desc'   => 'Book your door closer installation or adjustment at your convenience – we plan around your schedule for professional fitting and fine-tuning',
+			'usp_2_title'  => 'Free Quotes with Clear Pricing',
+			'usp_2_desc'   => 'Transparent quotes for installation, repair or adjustment – no hidden charges with expert assessment of door weight and traffic levels',
+			'usp_3_title'  => 'Fire Door Compliant Installations',
+			'usp_3_desc'   => 'DBS-checked engineers with correct sizing and valve adjustment – we ensure fire door compliance with controlled closing speeds and reliable latching',
+			'usp_4_title'  => 'All Closer Types Across [location]',
+			'usp_4_desc'   => 'Overhead, concealed, floor springs and heavy-duty closers – offices, schools, care homes and flats with sweep speed, latch speed and backcheck adjustment',
+			'cta_text'     => 'Call For Door Closer Help',
+			'microcopy'    => 'Free quotes • Fire door compliant • Expert adjustment',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Fire door compliant',
+			'badge_4'      => 'All closer types',
+			'sticky_cta'   => 'Call For Door Closer Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
