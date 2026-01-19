@@ -749,13 +749,13 @@ function e3_get_page_specific_hero_content( $post_id ) {
 	if ( 'cctv-repairs' === $slug || 'cctv-repair' === $slug ) {
 		$page_content = array(
 			'top_label'    => 'Call Now',
-			'top_bullet_1' => 'All System Types',
-			'top_bullet_2' => 'Remote & Onsite Support',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'All System Types',
 			'top_bullet_3' => 'Free Quotes',
 			'title'        => 'CCTV Repairs [location]',
 			'subtitle'     => 'Need CCTV system repairs? We diagnose and fix cameras, recorders and viewing issues with professional troubleshooting – from cameras offline to recording problems, we restore your security coverage fast',
-			'usp_1_title'  => 'Flexible Scheduling Available',
-			'usp_1_desc'   => 'Book your CCTV repair at your convenience – we plan around your schedule for professional diagnosis and component replacement',
+			'usp_1_title'  => 'Same-Day CCTV Repairs',
+			'usp_1_desc'   => 'Cameras offline or not recording? We offer same-day CCTV repairs – fast diagnosis and professional fixes to restore your security coverage quickly',
 			'usp_2_title'  => 'Transparent Pricing',
 			'usp_2_desc'   => 'Transparent quotes for camera repairs, recorder fixes or cabling issues – no hidden charges with clear diagnosis and solution recommendations',
 			'usp_3_title'  => 'Professional Repair Standards',
@@ -763,12 +763,39 @@ function e3_get_page_specific_hero_content( $post_id ) {
 			'usp_4_title'  => 'All System Types [location]',
 			'usp_4_desc'   => 'HD, IP, wireless and hybrid systems – residential and commercial repairs for cameras, DVRs, NVRs, power supplies and remote viewing',
 			'cta_text'     => 'Call For CCTV Repair Help',
-			'microcopy'    => 'Free quotes • All system types • Professional diagnosis',
-			'badge_1'      => 'Flexible scheduling',
+			'microcopy'    => 'Same day service • All system types • Professional diagnosis',
+			'badge_1'      => 'Same day service',
 			'badge_2'      => 'Free quotes',
 			'badge_3'      => 'Professional repairs',
 			'badge_4'      => 'All system types',
 			'sticky_cta'   => 'Call For CCTV Repair Help',
+		);
+	}
+
+	// Digital Door Viewers Page
+	if ( 'digital-door-viewers' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'HD Day & Night Vision',
+			'top_bullet_2' => 'Professional Installation',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Digital Door Viewer Installation [location]',
+			'subtitle'     => 'Need digital door viewers installed? We supply and fit HD viewers with wide-angle vision and two-way audio – from flats to rental properties, we install with motion alerts and recording for safer visitor screening',
+			'usp_1_title'  => 'Flexible Scheduling Available',
+			'usp_1_desc'   => 'Book your viewer installation at your convenience – we plan around your schedule for professional fitting and configuration',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Transparent quotes for supply and installation – no hidden charges with ERA, ICS and Ring viewer options',
+			'usp_3_title'  => 'Professional Installation Standards',
+			'usp_3_desc'   => 'DBS-checked engineers with optimal positioning – we install securely with motion settings, audio testing and recording setup',
+			'usp_4_title'  => 'All Property Types [location]',
+			'usp_4_desc'   => 'Houses, flats, HMOs and rental properties – battery and mains-powered viewers with mobile app access for elderly and vulnerable residents',
+			'cta_text'     => 'Call For Digital Viewer Quote',
+			'microcopy'    => 'Free quotes • HD quality • Professional installation',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Professional installation',
+			'badge_4'      => 'All property types',
+			'sticky_cta'   => 'Call For Digital Viewer Quote',
 		);
 	}
 
