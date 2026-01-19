@@ -178,34 +178,32 @@ function e3_get_page_specific_hero_content( $post_id ) {
 	// Page-specific hero content by slug or ID
 	$page_content = array();
 
-	// ADD YOUR PAGES HERE
-	// Example format:
-	//
-	// if ( 'your-page-slug' === $slug ) {
-	//     $page_content = array(
-	//         'top_label'    => 'Call us 24/7',
-	//         'top_bullet_1' => '30-min response',
-	//         'top_bullet_2' => 'No call-out fee',
-	//         'top_bullet_3' => 'DBS checked',
-	//         'title'        => 'Your Page Title [location]',
-	//         'subtitle'     => 'Your page subtitle with [location] tokens',
-	//         'usp_1_title'  => 'First USP Title',
-	//         'usp_1_desc'   => 'First USP description',
-	//         'usp_2_title'  => 'Second USP Title',
-	//         'usp_2_desc'   => 'Second USP description',
-	//         'usp_3_title'  => 'Third USP Title',
-	//         'usp_3_desc'   => 'Third USP description',
-	//         'usp_4_title'  => 'Fourth USP Title',
-	//         'usp_4_desc'   => 'Fourth USP description',
-	//         'cta_text'     => 'Call Button Text',
-	//         'microcopy'    => 'Small text under button',
-	//         'badge_1'      => 'Badge 1',
-	//         'badge_2'      => 'Badge 2',
-	//         'badge_3'      => 'Badge 3',
-	//         'badge_4'      => 'Badge 4',
-	//         'sticky_cta'   => 'Mobile Sticky Button Text',
-	//     );
-	// }
+	// Commercial Locksmiths Page
+	if ( 'commercial-locksmiths' === $slug || 'commercial-locksmith' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Commercial Locksmith Services [location] – Fast Business Lockout & Security Solutions',
+			'subtitle'     => 'Locked out or need security upgrades? We serve businesses across [location] with rapid emergency response and professional master key systems',
+			'usp_1_title'  => 'Rapid business lockout response',
+			'usp_1_desc'   => '30-minute emergency callout to get your premises open and staff back to work',
+			'usp_2_title'  => 'Zero call-out charges',
+			'usp_2_desc'   => 'Speak to us first, get clear pricing, only pay for completed work',
+			'usp_3_title'  => 'DBS-checked commercial engineers',
+			'usp_3_desc'   => 'Trusted, vetted locksmiths for your business premises and security systems',
+			'usp_4_title'  => 'Master key systems & rekeying',
+			'usp_4_desc'   => 'Full key control for businesses – manage staff access and eliminate lost key risks',
+			'cta_text'     => 'Call Now For Help & Free Quote',
+			'microcopy'    => '30-min response • Master key systems • No call-out fees',
+			'badge_1'      => 'DBS checked',
+			'badge_2'      => 'Business focused',
+			'badge_3'      => '30-min response',
+			'badge_4'      => 'Key control experts',
+			'sticky_cta'   => 'Call 24/7 For Help',
+		);
+	}
 
 	return ! empty( $page_content ) ? $page_content : null;
 }
