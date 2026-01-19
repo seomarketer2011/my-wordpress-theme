@@ -205,6 +205,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Security Grilles Page
+	if ( 'security-grilles' === $slug || 'security-grille' === $slug || 'security-grille-lock-repairs' === $slug || 'security-grille-lock-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £59',
+			'title'        => 'Security Grille Lock Repairs [location]',
+			'subtitle'     => 'Grille stuck or stiff? We repair jammed security grille locks with same-day service – get your mechanism working smoothly again',
+			'usp_1_title'  => 'Same-day grille lock repair',
+			'usp_1_desc'   => 'Same-day service available – we fix jammed, stiff, or binding grille mechanisms fast',
+			'usp_2_title'  => 'Clear repair pricing',
+			'usp_2_desc'   => 'Transparent pricing quoted upfront – parts charged separately only when needed',
+			'usp_3_title'  => 'Repair-first specialists',
+			'usp_3_desc'   => 'We restore existing lock function rather than replace – professional diagnosis and multi-cycle testing',
+			'usp_4_title'  => 'DBS-checked engineers',
+			'usp_4_desc'   => 'Trusted locksmiths for commercial security grille repairs with 24/7 availability',
+			'cta_text'     => 'Call Now For Help & Free Quote',
+			'microcopy'    => 'Same-day service • Repair-first approach • Fixed pricing',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Repair-focused',
+			'badge_3'      => 'From £59',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call 24/7 For Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
