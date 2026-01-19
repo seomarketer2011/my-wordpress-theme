@@ -502,6 +502,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Burglary Repair Services Page
+	if ( 'burglary-repair-services' === $slug || 'burglary-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Available 24/7',
+			'top_bullet_2' => 'No Call-Out Fee',
+			'top_bullet_3' => '30-min Response Time',
+			'title'        => 'Burglary Repair Services [location]',
+			'subtitle'     => 'Door kicked in or lock forced? We secure your property after break-ins with emergency repairs – from damaged frames to forced locks, we restore security and get you safe again',
+			'usp_1_title'  => 'Rapid response break-in repairs',
+			'usp_1_desc'   => '30-minute response for burglary damage – we prioritize break-in calls and secure your property fast when you need immediate help',
+			'usp_2_title'  => 'Complete damage repair',
+			'usp_2_desc'   => 'We repair forced doors, damaged frames, broken keeps, and misaligned locks – restoring full security rather than temporary fixes',
+			'usp_3_title'  => '24/7 emergency availability',
+			'usp_3_desc'   => 'Break-in at 2am? We\'re available 24/7 for emergency burglary repairs – we\'ll secure your property and restore your peace of mind',
+			'usp_4_title'  => 'Transparent emergency pricing',
+			'usp_4_desc'   => 'Clear quotes before we start – no hidden charges or surprise fees, even during stressful post-break-in situations',
+			'cta_text'     => 'Call Now For Emergency Burglary Repair',
+			'microcopy'    => '24/7 availability • Complete security restoration • Frame repairs',
+			'badge_1'      => '24/7 emergency service',
+			'badge_2'      => '30-min response',
+			'badge_3'      => 'Frame repairs',
+			'badge_4'      => 'No call-out fee',
+			'sticky_cta'   => 'Call Now For Emergency Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
