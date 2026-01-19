@@ -238,7 +238,7 @@ function e3_get_page_specific_hero_content( $post_id ) {
 			'top_label'    => 'Call Now',
 			'top_bullet_1' => 'Same Day Service',
 			'top_bullet_2' => 'No call-out fee',
-			'top_bullet_3' => 'Free Quotes',
+			'top_bullet_3' => 'Security Survey £69',
 			'title'        => 'Security Upgrades [location]',
 			'subtitle'     => 'Professional security surveys and upgrades – from anti-snap locks to smart cameras, we\'ll secure your property to insurance standards',
 			'usp_1_title'  => 'Professional security survey',
