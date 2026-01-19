@@ -286,6 +286,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Door Repair Page
+	if ( 'door-repair' === $slug || 'door-repairs' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £65',
+			'title'        => 'Door Repair Services [location]',
+			'subtitle'     => 'Door sticking, sagging, or won\'t close properly? We repair all door issues with same-day service – from alignment to hinges and frames',
+			'usp_1_title'  => 'Same-day door repairs',
+			'usp_1_desc'   => 'Fast response for door issues – we fix sticking doors, broken hinges, and alignment problems with professional service',
+			'usp_2_title'  => 'Clear pricing from £65',
+			'usp_2_desc'   => 'Transparent quotes upfront – alignment adjustments from £65, with parts charged separately when needed',
+			'usp_3_title'  => '6-month repair guarantee',
+			'usp_3_desc'   => 'All door repairs backed by our 6-month workmanship guarantee – DBS-checked engineers',
+			'usp_4_title'  => 'All door types covered',
+			'usp_4_desc'   => 'We repair uPVC doors, composite doors, wooden doors, and fire doors – hinges, handles, frames, and alignment',
+			'cta_text'     => 'Call to Book Same Day Door Repair',
+			'microcopy'    => 'Same-day service • 6-month guarantee • All door types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'From £65',
+			'badge_3'      => '6-month guarantee',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call us Now For Door Repair Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
