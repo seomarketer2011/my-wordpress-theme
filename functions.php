@@ -367,6 +367,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Door Lock Installation Page
+	if ( 'door-lock-installation' === $slug || 'lock-installation' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £85',
+			'title'        => 'Door Lock Installation [location]',
+			'subtitle'     => 'Need new locks installed or security upgraded? We fit all lock types with same-day service – from smart locks to BS3621 mortice deadlocks',
+			'usp_1_title'  => 'Same-day lock installation',
+			'usp_1_desc'   => 'Fast response for new lock fitting – we install fresh locks, upgrade existing systems, and fit smart lock solutions professionally',
+			'usp_2_title'  => 'Clear pricing from £85',
+			'usp_2_desc'   => 'Transparent quotes upfront – standard fitting from £85, fresh installations from £125, smart locks from £185, all VAT included',
+			'usp_3_title'  => 'Insurance-compliant installations',
+			'usp_3_desc'   => 'BS3621 5-lever mortice locks and TS007 cylinders meeting insurer requirements – professional installation guaranteed',
+			'usp_4_title'  => 'All lock types fitted',
+			'usp_4_desc'   => 'We install mortice deadlocks, smart locks, digital keypads, multipoint systems, and commercial maglocks – residential and business properties',
+			'cta_text'     => 'Call now For Lock Installation',
+			'microcopy'    => 'Same-day service • Insurance-compliant • All lock types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Insurance-compliant',
+			'badge_3'      => 'From £85',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Call For Lock Installation Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
