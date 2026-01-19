@@ -249,7 +249,7 @@ function e3_get_page_specific_hero_content( $post_id ) {
 			'usp_3_desc'   => 'BS3621 and PAS24 certified locks and security solutions meeting insurer requirements',
 			'usp_4_title'  => 'Complete security solutions',
 			'usp_4_desc'   => 'Anti-snap locks, smart cameras, door reinforcement, and 24/7 monitoring systems – all professionally installed',
-			'cta_text'     => 'Call Now For Help & Free Quote',
+			'cta_text'     => 'Call Now to Book Security Survey',
 			'microcopy'    => 'Security surveys • Insurance-compliant • Professional installation',
 			'badge_1'      => 'Insurance-approved',
 			'badge_2'      => 'BS3621 certified',
