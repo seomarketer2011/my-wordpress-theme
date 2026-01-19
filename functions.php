@@ -448,6 +448,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Roller Shutter Door Lock Repair Page
+	if ( 'roller-shutter-door-lock-repair' === $slug || 'roller-shutter-lock-repair' === $slug || 'roller-shutter-repair' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'No call-out fee',
+			'top_bullet_3' => 'From £59',
+			'title'        => 'Roller Shutter Door Lock Repair [location]',
+			'subtitle'     => 'Roller shutter won\'t lock or key sticking? We repair all roller shutter lock types with same-day service – from jammed mechanisms to worn shoot bolts',
+			'usp_1_title'  => 'Same-day shutter lock repairs',
+			'usp_1_desc'   => 'Fast response for roller shutter lock issues – we fix jammed locks, stiff mechanisms, and locking points that won\'t engage properly',
+			'usp_2_title'  => 'Transparent pricing',
+			'usp_2_desc'   => 'Clear quotes upfront – we diagnose the root cause, repair alignment, clean and lubricate mechanisms for reliable operation',
+			'usp_3_title'  => 'Professional diagnosis & repair',
+			'usp_3_desc'   => 'No quick fixes – we test across multiple cycles ensuring consistent locking without tricks like pushing or slamming',
+			'usp_4_title'  => 'All roller shutter types',
+			'usp_4_desc'   => 'We repair commercial and industrial roller shutter locks – shoot bolts, locking points, and key mechanisms with DBS-checked engineers',
+			'cta_text'     => 'Call Now For Shutter Lock Repairs',
+			'microcopy'    => 'Same-day service • Professional diagnosis • All shutter types',
+			'badge_1'      => 'Same-day service',
+			'badge_2'      => 'Commercial focused',
+			'badge_3'      => 'From £59',
+			'badge_4'      => 'DBS checked',
+			'sticky_cta'   => 'Help Available 24/7 Call Now',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
