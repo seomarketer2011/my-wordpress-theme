@@ -799,6 +799,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Smart Door Locks Page
+	if ( 'smart-door-locks' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Keyless Entry Solutions',
+			'top_bullet_2' => 'Professional Installation',
+			'top_bullet_3' => 'Free Quotes',
+			'title'        => 'Smart Door Lock Installation [location]',
+			'subtitle'     => 'Need smart locks installed? We supply and fit keyless entry systems with app control and keypad access – from family homes to rental properties, we install with full setup and user configuration for keyless convenience',
+			'usp_1_title'  => 'Flexible Scheduling Available',
+			'usp_1_desc'   => 'Book your smart lock installation at your convenience – we plan around your schedule for professional fitting and app setup',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Transparent quotes for supply and installation – no hidden charges with door compatibility assessment included',
+			'usp_3_title'  => 'Professional Installation Standards',
+			'usp_3_desc'   => 'DBS-checked engineers with secure mounting – we calibrate locks properly, set up apps and test repeatedly before handover',
+			'usp_4_title'  => 'All Lock Types [location]',
+			'usp_4_desc'   => 'App-controlled, keypad, fingerprint and fob systems – Bluetooth and Wi-Fi options for homes, rentals and small businesses',
+			'cta_text'     => 'Call For Smart Lock Quote',
+			'microcopy'    => 'Free quotes • Keyless entry • Professional installation',
+			'badge_1'      => 'Flexible scheduling',
+			'badge_2'      => 'Free quotes',
+			'badge_3'      => 'Professional installation',
+			'badge_4'      => 'All lock types',
+			'sticky_cta'   => 'Call For Smart Lock Quote',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
