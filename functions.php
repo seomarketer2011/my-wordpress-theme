@@ -952,62 +952,85 @@ add_shortcode( 'auto_cta', 'e3_auto_cta_banner_shortcode' );
 function e3_inline_hero_critical_css() {
 	?>
 	<style id="hero-critical-css">
-		/* Force immediate layout - highest specificity */
-		.conversion-hero,
-		#main .conversion-hero,
-		body .conversion-hero {
+		/* Force immediate layout - target actual hero classes */
+		.e3-hero,
+		.e3-hero__wrap,
+		body .e3-hero,
+		#main .e3-hero {
 			min-height: 400px !important;
 			display: block !important;
-			opacity: 1 !important;
 			visibility: visible !important;
 		}
 
-		.conversion-hero h1,
-		.conversion-hero .hero-title {
+		/* Lock title dimensions and prevent font swap shift */
+		.e3-hero__title,
+		.e3-hero h1 {
 			min-height: 60px !important;
 			margin: 0 0 15px !important;
 			line-height: 1.2 !important;
+			/* Use system fonts as fallback to prevent shift */
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 		}
 
-		.conversion-hero .hero-subtitle,
-		.conversion-hero p {
+		/* Lock subtitle dimensions */
+		.e3-hero__sub,
+		.e3-hero p {
 			min-height: 50px !important;
 			margin: 0 0 20px !important;
 			line-height: 1.5 !important;
 		}
 
-		.hero-badges,
-		.top-bullets,
-		.conversion-hero .hero-badges,
-		.conversion-hero .top-bullets {
+		/* Lock top strip dimensions */
+		.e3-topstrip {
 			min-height: 40px !important;
 			margin: 0 0 20px !important;
-			display: block !important;
+			display: flex !important;
 		}
 
-		/* Lock the entire hero container dimensions */
-		.conversion-hero-wrapper,
-		.kadence-conversion-hero {
-			min-height: 400px !important;
+		/* Lock grid and main area */
+		.e3-hero__grid,
+		.e3-hero__main {
+			min-height: 350px !important;
 		}
 
-		/* Prevent any animations/transitions during initial load */
-		.conversion-hero *,
-		.conversion-hero *::before,
-		.conversion-hero *::after {
+		/* Prevent ANY animations during load */
+		.e3-hero,
+		.e3-hero *,
+		.e3-hero *::before,
+		.e3-hero *::after {
+			animation: none !important;
 			animation-duration: 0s !important;
 			animation-delay: 0s !important;
+			transition: none !important;
 			transition-duration: 0s !important;
 			transition-delay: 0s !important;
 		}
 
-		/* Ensure fonts load without causing shift */
-		.conversion-hero h1,
-		.conversion-hero h2,
-		.conversion-hero h3 {
-			text-rendering: optimizeLegibility;
+		/* Force hardware acceleration */
+		.e3-hero {
+			transform: translateZ(0);
+			will-change: auto;
 		}
 	</style>
+	<script>
+		/* Prevent layout shift on font load */
+		(function() {
+			// Lock scroll position during initial render
+			var initialScroll = window.pageYOffset;
+
+			// Restore after fonts load or 100ms timeout
+			var timeout = setTimeout(function() {
+				document.documentElement.style.scrollBehavior = 'auto';
+			}, 100);
+
+			if (document.fonts && document.fonts.ready) {
+				document.fonts.ready.then(function() {
+					clearTimeout(timeout);
+					document.documentElement.style.scrollBehavior = 'auto';
+				});
+			}
+		})();
+	</script>
 	<?php
 }
 add_action( 'wp_head', 'e3_inline_hero_critical_css', 1 );
