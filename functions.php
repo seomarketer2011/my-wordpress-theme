@@ -952,33 +952,60 @@ add_shortcode( 'auto_cta', 'e3_auto_cta_banner_shortcode' );
 function e3_inline_hero_critical_css() {
 	?>
 	<style id="hero-critical-css">
-		/* Load hero layout immediately to prevent shift */
-		.conversion-hero {
-			min-height: 400px;
-			display: block;
-			opacity: 1;
+		/* Force immediate layout - highest specificity */
+		.conversion-hero,
+		#main .conversion-hero,
+		body .conversion-hero {
+			min-height: 400px !important;
+			display: block !important;
+			opacity: 1 !important;
+			visibility: visible !important;
 		}
 
-		.conversion-hero h1 {
-			min-height: 60px;
-			margin: 0 0 15px;
+		.conversion-hero h1,
+		.conversion-hero .hero-title {
+			min-height: 60px !important;
+			margin: 0 0 15px !important;
+			line-height: 1.2 !important;
 		}
 
-		.conversion-hero .hero-subtitle {
-			min-height: 50px;
-			margin: 0 0 20px;
+		.conversion-hero .hero-subtitle,
+		.conversion-hero p {
+			min-height: 50px !important;
+			margin: 0 0 20px !important;
+			line-height: 1.5 !important;
 		}
 
 		.hero-badges,
-		.top-bullets {
-			min-height: 40px;
-			margin: 0 0 20px;
+		.top-bullets,
+		.conversion-hero .hero-badges,
+		.conversion-hero .top-bullets {
+			min-height: 40px !important;
+			margin: 0 0 20px !important;
+			display: block !important;
 		}
 
-		/* Prevent any animations during initial load */
-		.conversion-hero * {
+		/* Lock the entire hero container dimensions */
+		.conversion-hero-wrapper,
+		.kadence-conversion-hero {
+			min-height: 400px !important;
+		}
+
+		/* Prevent any animations/transitions during initial load */
+		.conversion-hero *,
+		.conversion-hero *::before,
+		.conversion-hero *::after {
 			animation-duration: 0s !important;
+			animation-delay: 0s !important;
 			transition-duration: 0s !important;
+			transition-delay: 0s !important;
+		}
+
+		/* Ensure fonts load without causing shift */
+		.conversion-hero h1,
+		.conversion-hero h2,
+		.conversion-hero h3 {
+			text-rendering: optimizeLegibility;
 		}
 	</style>
 	<?php
