@@ -947,6 +947,45 @@ function e3_auto_cta_banner_shortcode() {
 add_shortcode( 'auto_cta', 'e3_auto_cta_banner_shortcode' );
 
 /** ---------------------------------------------------------
+ * Inline critical CSS for hero section to prevent layout shift
+ * -------------------------------------------------------- */
+function e3_inline_hero_critical_css() {
+	?>
+	<style id="hero-critical-css">
+		/* Load hero layout immediately to prevent shift */
+		.conversion-hero {
+			min-height: 400px;
+			display: block;
+			opacity: 1;
+		}
+
+		.conversion-hero h1 {
+			min-height: 60px;
+			margin: 0 0 15px;
+		}
+
+		.conversion-hero .hero-subtitle {
+			min-height: 50px;
+			margin: 0 0 20px;
+		}
+
+		.hero-badges,
+		.top-bullets {
+			min-height: 40px;
+			margin: 0 0 20px;
+		}
+
+		/* Prevent any animations during initial load */
+		.conversion-hero * {
+			animation-duration: 0s !important;
+			transition-duration: 0s !important;
+		}
+	</style>
+	<?php
+}
+add_action( 'wp_head', 'e3_inline_hero_critical_css', 1 );
+
+/** ---------------------------------------------------------
  * Remove Kadence default title output (prevents double H1)
  * -------------------------------------------------------- */
 add_action( 'wp', 'e3_maybe_remove_kadence_default_titles' );
