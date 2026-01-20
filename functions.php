@@ -911,6 +911,42 @@ function e3_get_page_specific_hero_content( $post_id ) {
 }
 
 /** ---------------------------------------------------------
+ * Auto CTA Banner Shortcode - Pulls from H1 hero title
+ * -------------------------------------------------------- */
+function e3_auto_cta_banner_shortcode() {
+	$post_id = get_queried_object_id();
+	$content = e3_get_page_specific_hero_content( $post_id );
+
+	// Get H1 from hero content, fallback to page title
+	$h1_title = ! empty( $content['title'] ) ? $content['title'] : get_the_title();
+
+	// Apply Magic Page token replacement if available
+	if ( function_exists( 'e3_apply_magicpage_vars' ) ) {
+		$h1_title = e3_apply_magicpage_vars( $h1_title );
+	}
+
+	// Create CTA text from H1
+	$cta_text = "Need {$h1_title}? Call us now to arrange a quotation";
+
+	$phone    = e3_get_telephone_number();
+	$tel_href = e3_phone_to_tel_href( $phone );
+
+	ob_start();
+	?>
+	<div class="cta-banner" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 30px; text-align: center; border-radius: 8px; margin: 40px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+		<h3 style="color: white; margin-bottom: 15px; font-size: 1.8em;">
+			<?php echo esc_html( $cta_text ); ?>
+		</h3>
+		<a href="<?php echo esc_attr( $tel_href ); ?>" class="cta-button" style="background: white; color: #1e3a8a; padding: 15px 40px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 1.1em; transition: transform 0.2s;">
+			📞 Call Now: <?php echo esc_html( $phone ); ?>
+		</a>
+	</div>
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'auto_cta', 'e3_auto_cta_banner_shortcode' );
+
+/** ---------------------------------------------------------
  * Remove Kadence default title output (prevents double H1)
  * -------------------------------------------------------- */
 add_action( 'wp', 'e3_maybe_remove_kadence_default_titles' );
