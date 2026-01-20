@@ -880,6 +880,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Intercom System Repairs Page
+	if ( 'intercom-system-repairs' === $slug || 'intercom-repairs' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Call Now',
+			'top_bullet_1' => 'Same Day Service',
+			'top_bullet_2' => 'All Intercom Types',
+			'top_bullet_3' => 'Prices from £59',
+			'title'        => 'Intercom System Repairs [location]',
+			'subtitle'     => 'Need intercom repairs? We diagnose and fix audio, video and door entry intercoms with professional troubleshooting – from no power to release faults, we restore your intercom system fast with same-day service',
+			'usp_1_title'  => 'Same-Day Intercom Repairs',
+			'usp_1_desc'   => 'Intercom not working or door release failing? We offer same-day intercom repairs – fast diagnosis and professional fixes to restore communication quickly',
+			'usp_2_title'  => 'Transparent Pricing',
+			'usp_2_desc'   => 'Intercom repairs from £59 with transparent quotes for component replacement – no hidden charges with clear fault diagnosis and power testing',
+			'usp_3_title'  => 'Professional Repair Standards',
+			'usp_3_desc'   => 'DBS-checked engineers fixing audio issues, video problems, release faults and power failures – we diagnose properly and restore full functionality',
+			'usp_4_title'  => 'All Intercom Types [location]',
+			'usp_4_desc'   => 'Audio and video intercoms for flats, blocks, offices and commercial – wired, wireless, networked and multi-tenant systems',
+			'cta_text'     => 'Call For Intercom Repair Help',
+			'microcopy'    => 'Same day service • Prices from £59 • Professional diagnosis',
+			'badge_1'      => 'Same day service',
+			'badge_2'      => 'Prices from £59',
+			'badge_3'      => 'Professional repairs',
+			'badge_4'      => 'All intercom types',
+			'sticky_cta'   => 'Call For Intercom Repair Help',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
