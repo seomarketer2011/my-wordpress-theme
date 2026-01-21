@@ -48,8 +48,6 @@
   padding:10px 12px;
   border-radius:14px;
   width:fit-content;
-  margin-left:auto;
-  margin-right:auto;
 }
 .e3-topstrip__label{ font-weight:700; color:var(--e3-text); }
 .e3-topstrip__phone{
