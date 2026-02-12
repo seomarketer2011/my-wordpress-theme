@@ -10,6 +10,34 @@ This is the child theme for Kadence theme, generated with Generate Child Theme p
 (optional values you can add: Theme URI, Author URI, License, License URI, Tags, Text Domain)
 */
 
+/* Menu heading styles - match original <a> styling */
+.menu-heading > .menu-heading-text {
+	display: flex;
+	align-items: center;
+	padding: 0.6em 1em;
+	font-weight: 500;
+	color: var(--global-palette4, #333);
+	cursor: default;
+}
+
+.menu-heading > .menu-heading-text .nav-drop-title-wrap {
+	display: flex;
+	align-items: center;
+	gap: 0.25em;
+}
+
+.header-navigation .menu-heading > .menu-heading-text {
+	font-size: inherit;
+	line-height: inherit;
+	text-decoration: none;
+}
+
+.menu-heading > .menu-heading-text,
+.menu-heading > .menu-heading-text .nav-drop-title-wrap {
+	color: #333;
+	font-weight: 600;
+}
+
 /* General */
 body .content-wrap > .entry {
     box-shadow: none;
@@ -812,7 +840,9 @@ footer#colophon {
 	body h3 {
 		font-size: 30px;
 	}
+
 	html, body,
-button, input, select, textarea {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+	button, input, select, textarea {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+	}
 }
