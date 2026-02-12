@@ -1090,6 +1090,33 @@ function e3_get_page_specific_hero_content( $post_id ) {
 		);
 	}
 
+	// Security Alarm Installation Page
+	if ( 'security-alarm-installation' === $slug ) {
+		$page_content = array(
+			'top_label'    => 'Get a Quote Today',
+			'top_bullet_1' => 'Transparent Pricing',
+			'top_bullet_2' => 'Written Quote Available',
+			'top_bullet_3' => 'New Alarm Installation',
+			'title'        => 'Security Alarm Installation [location]',
+			'subtitle'     => 'Transparent Pricing • Written Quote Provided With Options • Quote Confirmed → Booking Slot Set → Neat Installation, Full Testing, and Handover Notes Before We Leave.',
+			'usp_1_title'  => 'Quote Today',
+			'usp_1_desc'   => 'Install and Commission Security Alarms That Deter Intruders and Give Reliable Protection Across Your Property.',
+			'usp_2_title'  => 'Neat Installation',
+			'usp_2_desc'   => 'We Plan Sensor Placement, Run Cabling Neatly Where Needed, and Test Zones, Siren, and App Alerts So Everything Works Correctly.',
+			'usp_3_title'  => 'Written Quote Option',
+			'usp_3_desc'   => 'We Confirm Your Quote Before Work; Cost Depends On Property Size, Number of Sensors, Cabling, and Monitoring Options.',
+			'usp_4_title'  => 'DBS Checked',
+			'usp_4_desc'   => 'Fully Insured Technician, Work Guaranteed, Testing Completed Before Leaving, and Clear Handover Notes for Settings and Maintenance.',
+			'cta_text'     => 'Call Now Arrange Alarm Quote',
+			'microcopy'    => 'Alarm Installation • Clear Pricing • DBS Checked',
+			'badge_1'      => 'Quote Today',
+			'badge_2'      => 'Neat Installation',
+			'badge_3'      => 'Written Quote Option',
+			'badge_4'      => 'DBS Checked',
+			'sticky_cta'   => 'Call Now Alarm Installation Quote',
+		);
+	}
+
 	return ! empty( $page_content ) ? $page_content : null;
 }
 
