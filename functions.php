@@ -20,15 +20,13 @@ function e3_locksmith_enqueue_styles() {
 	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', array(), null );
 	wp_enqueue_style( 'child-style', $child_uri . '/style.css', array( 'parent-style' ), null );
 
-	// Conversion UI CSS
+	// Conversion UI CSS – inlined for speed (eliminates render-blocking request)
+	// The file is small (~6KB) so inlining is faster than a separate HTTP request.
 	$ui_css = $child_path . '/assets/css/e3-conversion-ui.css';
 	if ( file_exists( $ui_css ) ) {
-		wp_enqueue_style(
-			'e3-conversion-ui',
-			$child_uri . '/assets/css/e3-conversion-ui.css',
-			array( 'child-style' ),
-			filemtime( $ui_css )
-		);
+		add_action( 'wp_head', function() use ( $ui_css ) {
+			echo '<style id="e3-conversion-ui-inline">' . file_get_contents( $ui_css ) . '</style>';
+		}, 20 );
 	}
 }
 
@@ -49,36 +47,17 @@ add_filter('walker_nav_menu_start_el', function($item_output, $item, $depth, $ar
 
 /** ---------------------------------------------------------
  * Convert empty <a> tags to spans in menu headings
+ * Uses wp_nav_menu filter instead of output buffering for speed
  * -------------------------------------------------------- */
-function e3_fix_empty_anchor_tags($buffer) {
-	if (is_admin()) {
-		return $buffer;
-	}
-	
-	// Target <a> tags with no href inside menu-heading items
-	$buffer = preg_replace(
+add_filter( 'wp_nav_menu', 'e3_fix_empty_anchor_tags_in_menu', 10, 2 );
+function e3_fix_empty_anchor_tags_in_menu( $nav_menu, $args ) {
+	$nav_menu = preg_replace(
 		'/(<li[^>]*class="[^"]*menu-heading[^"]*"[^>]*>)\s*<a>(.*?)<\/a>/is',
 		'$1<span class="menu-heading-text" role="presentation">$2</span>',
-		$buffer
+		$nav_menu
 	);
-	
-	return $buffer;
+	return $nav_menu;
 }
-
-function e3_start_buffer() {
-	if (!is_admin()) {
-		ob_start('e3_fix_empty_anchor_tags');
-	}
-}
-
-function e3_end_buffer() {
-	if (!is_admin() && ob_get_level() > 0) {
-		ob_end_flush();
-	}
-}
-
-add_action('after_setup_theme', 'e3_start_buffer');
-add_action('shutdown', 'e3_end_buffer', 999);
 
 /** ---------------------------------------------------------
  * Basic speed hygiene
@@ -96,6 +75,53 @@ function e3_speed_hygiene() {
 
 	// Remove WP embed script
 	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+
+	// Remove WP generator tag, RSD link, wlwmanifest, shortlink
+	remove_action( 'wp_head', 'wp_generator' );
+	remove_action( 'wp_head', 'rsd_link' );
+	remove_action( 'wp_head', 'wlwmanifest_link' );
+	remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+	remove_action( 'wp_head', 'rest_output_link_wp_head' );
+
+	// Disable self-pingbacks
+	add_action( 'pre_ping', function( &$links ) {
+		$home = get_option( 'home' );
+		foreach ( $links as $i => $link ) {
+			if ( 0 === strpos( $link, $home ) ) {
+				unset( $links[ $i ] );
+			}
+		}
+	});
+}
+
+/** Preconnect to Google Analytics domain */
+add_filter( 'wp_resource_hints', 'e3_resource_hints', 10, 2 );
+function e3_resource_hints( $hints, $relation_type ) {
+	if ( 'preconnect' === $relation_type ) {
+		$hints[] = array(
+			'href'        => 'https://www.googletagmanager.com',
+			'crossorigin' => 'anonymous',
+		);
+	}
+	return $hints;
+}
+
+/** Defer non-critical JS for faster rendering */
+add_filter( 'script_loader_tag', 'e3_defer_scripts', 10, 3 );
+function e3_defer_scripts( $tag, $handle, $src ) {
+	// Don't defer admin or already-async scripts
+	if ( is_admin() ) {
+		return $tag;
+	}
+	// Skip jQuery core as plugins may depend on it inline
+	if ( 'jquery-core' === $handle || 'jquery' === $handle ) {
+		return $tag;
+	}
+	// Add defer if not already present
+	if ( false === strpos( $tag, 'defer' ) && false === strpos( $tag, 'async' ) ) {
+		$tag = str_replace( ' src=', ' defer src=', $tag );
+	}
+	return $tag;
 }
 
 add_action( 'wp_enqueue_scripts', 'e3_dequeue_dashicons_for_visitors', 100 );
@@ -109,6 +135,14 @@ function e3_dequeue_dashicons_for_visitors() {
  * Magic Page Helper Functions
  * -------------------------------------------------------- */
 function e3_get_magicpage_term() {
+	// Cache per request to avoid duplicate plugin/DB calls.
+	static $cached = null;
+	static $resolved = false;
+	if ( $resolved ) {
+		return $cached;
+	}
+	$resolved = true;
+
 	// Magic Page plugin provides the most reliable context for [meta_*] tokens.
 	if ( function_exists( 'get_location_object' ) ) {
 		$term = get_location_object();
@@ -116,7 +150,8 @@ function e3_get_magicpage_term() {
 			$term = $term[0];
 		}
 		if ( is_object( $term ) && isset( $term->term_id ) ) {
-			return $term;
+			$cached = $term;
+			return $cached;
 		}
 	}
 
@@ -126,7 +161,8 @@ function e3_get_magicpage_term() {
 			$term = $term[0];
 		}
 		if ( is_object( $term ) && isset( $term->term_id ) ) {
-			return $term;
+			$cached = $term;
+			return $cached;
 		}
 	}
 
@@ -143,6 +179,11 @@ function e3_apply_magicpage_vars( $html ) {
 }
 
 function e3_get_phone_display() {
+	static $phone_cache = null;
+	if ( null !== $phone_cache ) {
+		return $phone_cache;
+	}
+
 	$phone = '';
 
 	$term = e3_get_magicpage_term();
@@ -157,7 +198,8 @@ function e3_get_phone_display() {
 		}
 	}
 
-	return trim( (string) $phone );
+	$phone_cache = trim( (string) $phone );
+	return $phone_cache;
 }
 
 function e3_phone_to_tel_href( $phone ) {
